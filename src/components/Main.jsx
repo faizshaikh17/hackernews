@@ -45,16 +45,16 @@ export default function Main() {
     }, [])
     console.log(topStories)
     return (
-        <main className='min-h-screen my-4'>
+        <main className='min-h-screen tracking-tight my-4'>
             <div className='space-y-5 '>
                 {
                     topStories.map(item => (
                         <>
                             <div className='spacye-y-4'>
-                                <div className='space-y-3 p-4 hover:bg-[#171717]'>
-                                    <a href={item.url} className=' hover:text-[#FC7D49] font-semibold hover:underline sm:text-lg text-base'>{item.title}</a>
-                                    <p className='text-xs sm:text-sm'>by <span className='text-[#FC7D49] underline'>{item.by}</span></p>
-                                    <span>{item.score}|{item.time}</span>
+                                <div className=' flex flex-col gap-2.5 p-4 hover:bg-[#171717]'>
+                                    <p className=' hover:text-[#FC7D49] font-semibold hover:underline sm:text-[1.1rem] text-base'><a href={item.url}>{item.title}</a></p>
+                                    <p className='text-xs sm:text-sm text-gray-400'>by <span className='text-[#FC7D49] underline'>{item.by}</span></p>
+                                    <span className='text-xs sm:text-sm text-gray-400'>Score {item.score} | {item.time}</span>
                                     <br />
                                 </div>
                                 <div className='bg-[#171717] mt-5 h-0.5'></div>
