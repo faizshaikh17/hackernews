@@ -11,7 +11,7 @@ export const fetchItemsById = async (id) => {
 }
 
 export const fetchUserById = async (username) => {
-    const res = await fetch(`https://hacker-news.firebaseio.com/v0/item/${username}.json?print=pretty`)
+    const res = await fetch(`https://hacker-news.firebaseio.com/v0/user/${username}.json?print=pretty`)
     const data = await res.json()
     return data
 }

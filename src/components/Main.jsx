@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { fetchTopStories, fetchItemsById } from '../utils/utils'
+import { Link } from 'react-router-dom'
 
 
 const fetchStories = async () => {
@@ -8,7 +9,7 @@ const fetchStories = async () => {
         if (!storyIds) {
             throw new Error("no response");
         }
-        const stories = storyIds.slice(0, 5).map(async (id) => {
+        const stories = storyIds.slice(25, 35).map(async (id) => {
             const story = await fetchItemsById(id);
             if (!story) {
                 throw new Error("no response");
@@ -21,7 +22,10 @@ const fetchStories = async () => {
                 'by': story.by,
                 'comments': story.comments,
                 'score': story.score,
-                'time': story.time,
+                'time': `${new Date(story.time * 1000).getDate()}/${new Date(story.time * 1000).getMonth()}/${new Date(story.time * 1000).getFullYear()}`,
+                'joined': story.joined,
+                'karma': story.karma,
+                'about': story.about,
             }
         })
 
@@ -34,6 +38,7 @@ const fetchStories = async () => {
 }
 
 
+
 export default function Main() {
     const [topStories, setTopStories] = useState([]);
     useEffect(() => {
@@ -43,7 +48,8 @@ export default function Main() {
         }
         ))
     }, [])
-    console.log(topStories)
+
+
     return (
         <main className='min-h-screen tracking-tight my-4'>
             <div className='space-y-5 '>
@@ -51,10 +57,13 @@ export default function Main() {
                     topStories.map(item => (
                         <>
                             <div className='spacye-y-4'>
-                                <div className=' flex flex-col gap-2.5 p-4 hover:bg-[#171717]'>
-                                    <p className=' hover:text-[#FC7D49] font-semibold hover:underline sm:text-[1.1rem] text-base'><a href={item.url}>{item.title}</a></p>
+                                <div className=' space-y-2 p-3.5 hover:bg-[#171717]'>
+                                    <p className=' hover:text-[#FC7D49] font-semibold hover:underline sm:text-[1rem] text-base'><a href={item.url}>{item.title}</a></p>
                                     <p className='text-xs sm:text-sm text-gray-400'>by <span className='text-[#FC7D49] underline'>{item.by}</span></p>
-                                    <span className='text-xs sm:text-sm text-gray-400'>Score {item.score} | {item.time}</span>
+                                    <Link to={`/users/${item.by}`}>
+                                        <span className='text-xs sm:text-sm text-gray-400'>Score {item.score} | {item.time} </span>
+                                    </Link>
+
                                     <br />
                                 </div>
                                 <div className='bg-[#171717] mt-5 h-0.5'></div>
