@@ -8,7 +8,7 @@ export default function Header() {
             <header className='p-4 tracking-tight text-[#FC7D49]'>
                 <div className='flex items-center justify-between'>
                     <Link to={'/'}>
-                    <span className='font-semibold text-xl text-white'>hacker<span className='text-[#FC7D49]'>news</span></span> 
+                        <span className='font-semibold tracking-wide text-lg text-white sm:text-[1.4rem]'>newhacker<span className='text-[#FC7D49]'>times</span></span>
                     </Link>
                     <span className=' text-base'>github</span>
                 </div>

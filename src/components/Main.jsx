@@ -9,7 +9,7 @@ const fetchStories = async () => {
         if (!storyIds) {
             throw new Error("no response");
         }
-        const stories = storyIds.slice(0, 20).map(async (id) => {
+        const stories = storyIds.slice(0, 50).map(async (id) => {
             const story = await fetchItemsById(id);
             if (!story) {
                 throw new Error("no response");
@@ -43,31 +43,53 @@ export default function Main() {
     const [topStories, setTopStories] = useState([]);
     const [loading, setLoading] = useState(true)
     const [page, setPage] = useState(1)
-    const [limit, setLimit] = useState(10)
+    const limit = 10
     const [totalPages, setTotalPages] = useState(10)
     useEffect(() => {
         setLoading(true)
 
         fetchStories().then(newStories => setTopStories(prev => {
             const unique = newStories.filter(newStory => !prev.some(prevStory => newStory.id === prevStory.id))
+            setTotalPages(Math.floor(topStories.length / limit))
             setLoading(false)
-            setTotalPages(topStories.length / limit)
-
             return [...prev, ...unique]
         }
 
         ))
-    }, [])
+    }, [totalPages, page])
+
+    const prevPage = () => {
+        if (page >= 2) {
+            setPage(prev => prev - 1)
+        }
+    }
+
+    const prevPointer = () => {
+        setPage(1);
+    }
+
+    const nextPointer = () => {
+        setPage(totalPages);
+    }
+
+    const nextPage = () => {
+        if (page < totalPages) {
+            setPage(prev => prev + 1)
+        }
+    }
+
+
+    const pageWiseStories = topStories.slice(((page - 1) * limit), page * limit);
 
 
     if (loading) return <p className='h-60 font-semibold sm:text-[1.05rem] text-base  flex items-center justify-center'>Loading...</p>
     return (
-        <main className='min-h-screen tracking-tight my-4'>
+        <main className='min-h-screen space-y-5 tracking-tight my-4'>
             <div className='space-y-5 '>
                 {
-                    topStories.map(item => (
+                    pageWiseStories.map((item, index) => (
                         <>
-                            <div className='spacye-y-4'>
+                            <div key={index} className='spacye-y-4'>
                                 <div className=' space-y-1.5 p-3.5 hover:bg-[#171717]'>
                                     <p className=' hover:text-[#FC7D49] font-semibold hover:underline sm:text-[1.05rem] text-base'><a href={item.url}>{item.title}</a></p>
                                     <p className='text-xs sm:text-sm text-gray-400'>by{' '}
@@ -87,12 +109,12 @@ export default function Main() {
             <div>
                 {
                     <>
-                        <div className='flex justify-center items-center gap-8'>
-                            <ChevronsLeft size={20} />
-                            <ChevronLeft size={20} />
-                            {page}|{totalPages}
-                            <ChevronRight size={20} />
-                            <ChevronsRight size={20} />
+                        <div className='flex justify-center items-center gap-15'>
+                            <ChevronsLeft size={20} onClick={prevPointer} />
+                            <ChevronLeft size={20} onClick={prevPage} />
+                            <span className='text-lg'>{page} / {totalPages}</span>
+                            <ChevronRight size={20} onClick={nextPage} />
+                            <ChevronsRight size={20} onClick={nextPointer} />
                         </div>
                     </>
                 }
