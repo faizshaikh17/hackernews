@@ -10,47 +10,30 @@ body {
   margin: 0 auto;
   padding: 1rem;
   background-color: #111010;
-  /* font-family: 'MozillaHeadline'; */
-  /* font-family: 'SpaceMono'; */
   /* font-family: "Bricolage Grotesque", sans-serif; */
   /* font-family: "Poppins", sans-serif; */
+  font-family: 'DuplicateSans';
 
-  /* letter-spacing: 0.03rem; */
+  letter-spacing: 0.03rem;
 }
 
 
 @font-face {
-  font-family: 'SpaceMono';
-  src: url('/fonts/SpaceMono-Regular.woff2') format('woff2');
-  font-weight: 400;
-  /* Regular */
-  font-style: normal;
-}
-
-
-@font-face {
-  font-family: 'MozillaHeadline';
-  src: url('/public/fonts/MozillaHeadline-Regular.woff2') format('woff2');
-  font-weight: 400;
-  /* Regular */
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'MozillaHeadline';
-  src: url('/public/fonts/MozillaHeadline-SemiBold.woff2') format('woff2');
-  font-weight: 600;
-  /* SemiBold */
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'MozillaHeadline';
-  src: url('/public/fonts/MozillaHeadline-Bold.woff2') format('woff2');
-  font-weight: 700;
+  font-family: 'DuplicateSans';
+  src: url('/public/fonts/DuplicateSans-medium.woff2') format('woff2');
+  font-weight: 500;
   /* Bold */
   font-style: normal;
 }
+
+@font-face {
+  font-family: 'DuplicateSans';
+  src: url('/public/fonts/DuplicateSans-regular.woff2') format('woff2');
+  font-weight: 400;
+  /* Bold */
+  font-style: normal;
+}
+
 
 
 @font-face {
@@ -66,6 +49,8 @@ body {
   font-weight: 400;
   font-style: normal;
 }
+
+
 
 .comment a {
   text-decoration: underline;

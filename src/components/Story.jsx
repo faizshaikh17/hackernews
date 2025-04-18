@@ -12,58 +12,76 @@ export default function story() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        setLoading(true);
-        try {
-            const fetchUser = async (id) => {
-                const User = await fetchItemsById(id);
-                if (!User) {
-                    throw new Error("no user response");
+        const fetchUser = async (id) => {
+            try {
+                setLoading(true);
+                const userData = await fetchItemsById(id);
+                if (!userData) {
+                    throw new Error('No user response');
                 }
-                setUser(User);
-            };
-            setLoading(false);
-            fetchUser(id);
+                setUser(userData);
+            } catch (error) {
+                console.error('Error fetching story:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-        } catch (error) {
-            console.error('Error fetching top stories:', error);
-        }
+        fetchUser(id);
     }, [id]);
 
-    const fetchComments = async () => {
+    console.log(user.kids);
+
+    const fetchComments = async (ids) => {
+        if (!ids || ids.length === 0) return null
         try {
-            const userDetails = user.kids.map(async (id) => {
+            const userDetails = ids.map(async (id) => {
                 const comments = await fetchItemsById(id);
                 if (!comments) {
                     throw new Error('no user found');
                 }
+                const nestedComments = await fetchComments(comments.kids || [])
+
                 return {
                     by: comments.by,
                     time: `${new Date(comments.time * 1000).getDate()}/${new Date(comments.time * 1000).getMonth() + 1
                         }/${new Date(comments.time * 1000).getFullYear()}`,
                     text: comments.text,
+                    kids: nestedComments,
                 }
             })
             return Promise.all(userDetails)
         } catch (error) {
             console.log(error)
+            return []
         }
     }
 
+
     useEffect(() => {
         setLoading(true)
-        fetchComments().then((comment) => {
-            if (comment) setComments(comment)
-            else return null
-        })
+        if (user && user.kids) {
+            fetchComments(user.kids).then((comment) => {
+                if (comment) setComments(comment)
+                else return null
+            })
+        }
         setLoading(false)
     }, [user])
 
+    console.log(comments);
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) {
+        return (
+            <p className="h-60 font-semibold sm:text-[1.05rem] text-base flex items-center justify-center">
+                Loading...
+            </p>
+        );
+    }
 
     return (
         <>
-            <main className='min-h-screen p-4.5 my-2'>
+            {<main className='min-h-screen p-4.5 my-2'>
                 <div>
                     <div className="space-y-4 p-3.5">
                         <p className="sm:text-3xl text-lg">
@@ -95,15 +113,29 @@ export default function story() {
                 <div className="space-y-2.5 p-4">
                     <p className='sm:text-lg text-lg'>Comments</p>
                     <div>
-                        {comments.map((comment) => (
+                        {comments.map((comment, index) => (
                             <>
-                                <div className="space-y-4">
+                                <div key={index} className="space-y-4">
                                     <div className='p-4 mt-4 space-y-3 rounded-lg hover:bg-[#171717]'>
                                         <div>
-                                            <Link to={`/user/${comment.by}`}> <span className="text-[#FC7D49] font-medium hover:underline decoration-1 underline-offset-2 sm:text-sm text-sm hover:text-[#FF6600]">{comment.by} </span></Link>|<span className='sm:text-sm text-sm'> {comment.time}</span>
+                                            <Link to={`/users/${comment.by}`}> <span className="text-[#FC7D49] font-semibold hover:underline decoration-1 underline-offset-2 sm:text-sm text-sm hover:text-[#FF6600]">{comment.by} </span></Link>|<span className='sm:text-sm text-sm'> {comment.time}</span>
                                         </div>
                                         <div className='comment text-gray-200 sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: comment.text }} />
-                                        {console.log(comment.text)}
+                                        {comment.kids && comment.kids.length > 0 &&
+                                            comment.kids.map((item, index) => (
+                                                <>
+                                                    <div key={index} className='py-4 pl-8 overflow-hidden shadow-sm border-l-[0.01rem] border-l-neutral-800 transition-colors space-y-3  hover:bg-[#171717]'>
+                                                        <div>
+                                                            <Link to={`/users/${item.by}`}>
+                                                                <span className="text-[#FC7D49] font-semibold hover:underline decoration-1 underline-offset-2 sm:text-sm text-sm hover:text-[#FF6600]">
+                                                                    {item.by}
+                                                                </span></Link>|<span className='sm:text-sm text-sm'> {item.time}</span>
+                                                        </div>
+                                                        <div className='comment text-gray-200 sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: item.text }} />
+                                                    </div>
+                                                </>
+                                            ))
+                                        }
                                     </div>
                                     <div className="bg-[#171717] mt-5 h-0.5"></div>
                                 </div>
@@ -112,7 +144,7 @@ export default function story() {
                         }
                     </div>
                 </div>
-            </main>
+            </main>}
         </>
     )
 }

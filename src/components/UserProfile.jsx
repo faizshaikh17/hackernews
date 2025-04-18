@@ -25,7 +25,13 @@ export default function UserProfile() {
     }
   }, [username]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) {
+    return (
+        <p className="h-60 font-semibold sm:text-[1.05rem] text-base flex items-center justify-center">
+            Loading...
+        </p>
+    );
+}
 
   return (
     <>
@@ -50,7 +56,7 @@ export default function UserProfile() {
                   </p>
                   <p>
                     <span className='text-gray-400 text-base'>About: </span>
-                    {user.about || 'There should be description here somewhere...'}
+                    {<div dangerouslySetInnerHTML={{ __html: user.about }}></div> || 'There should be description here somewhere...'}
                   </p>
                 </div>
               </div>
