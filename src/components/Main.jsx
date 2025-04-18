@@ -41,15 +41,19 @@ const fetchStories = async () => {
 
 export default function Main() {
     const [topStories, setTopStories] = useState([]);
+    const [loading, setLoading] = useState(true)
     useEffect(() => {
+        setLoading(true)
         fetchStories().then(newStories => setTopStories(prev => {
             const unique = newStories.filter(newStory => !prev.some(prevStory => newStory.id === prevStory.id))
+            setLoading(false)
+
             return [...prev, ...unique]
         }
         ))
     }, [])
 
-
+if(loading)return <p className='p-4'>loading...</p>
     return (
         <main className='min-h-screen tracking-tight my-4'>
             <div className='space-y-5 '>
@@ -57,12 +61,12 @@ export default function Main() {
                     topStories.map(item => (
                         <>
                             <div className='spacye-y-4'>
-                                <div className=' space-y-2 p-3.5 hover:bg-[#171717]'>
-                                    <p className=' hover:text-[#FC7D49] font-semibold hover:underline sm:text-[1rem] text-base'><a href={item.url}>{item.title}</a></p>
-                                    <p className='text-xs sm:text-sm text-gray-400'>by <span className='text-[#FC7D49] underline'>{item.by}</span></p>
+                                <div className=' space-y-1.5 p-3.5 hover:bg-[#171717]'>
+                                    <p className=' hover:text-[#FC7D49] font-semibold hover:underline sm:text-[1.05rem] text-base'><a href={item.url}>{item.title}</a></p>
                                     <Link to={`/users/${item.by}`}>
-                                        <span className='text-xs sm:text-sm text-gray-400'>Score {item.score} | {item.time} </span>
+                                        <p className='text-xs sm:text-sm text-gray-400'>by <span className='text-[#FC7D49] underline'>{item.by}</span></p>
                                     </Link>
+                                    <span className='text-xs sm:text-sm text-gray-400'>Score {item.score} | {item.time} </span>
 
                                     <br />
                                 </div>
