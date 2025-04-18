@@ -3,12 +3,10 @@ import { fetchItemsById } from '../utils/utils';
 import { useParams, Link } from 'react-router-dom';
 import { Triangle } from 'lucide-react';
 
-
 export default function story() {
     const [user, setUser] = useState([]);
     const [comments, setComments] = useState([]);
     const { id } = useParams();
-
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -41,11 +39,9 @@ export default function story() {
                     throw new Error('no user found');
                 }
                 const nestedComments = await fetchComments(comments.kids || [])
-
                 return {
                     by: comments.by,
-                    time: `${new Date(comments.time * 1000).getDate()}/${new Date(comments.time * 1000).getMonth() + 1
-                        }/${new Date(comments.time * 1000).getFullYear()}`,
+                    time: `${new Date(comments.time * 1000).getDate()}/${new Date(comments.time * 1000).getMonth() + 1}/${new Date(comments.time * 1000).getFullYear()}`,
                     text: comments.text,
                     kids: nestedComments,
                 }
@@ -56,7 +52,6 @@ export default function story() {
             return []
         }
     }
-
 
     useEffect(() => {
         setLoading(true)
@@ -89,7 +84,6 @@ export default function story() {
                                 {user.title}
                             </a>
                         </p>
-
                         <span className="text-xs sm:text-sm flex items-center gap-1 text-gray-400">
                             <p className="text-xs sm:text-sm text-gray-400">
                                 by{' '}
@@ -101,12 +95,10 @@ export default function story() {
                             </p>
                             <Link to={`/story/${user.id}`}>
                                 <span className="text-[#FC7D49] hover:text-[#FF6600] hover:underline underline-offset-2">
-                                    {/* {user.kids.length} comments */}
                                 </span>
                             </Link>
                             | <Triangle size={12} /> {user.score} Score | {`${new Date(user.time * 1000).getDate().toString()}/${new Date(user.time * 1000).getMonth().toString()}/${new Date(user.time * 1000).getFullYear().toString()}`}
                         </span>
-
                         <p className='text-[#FC7D49] sm:text-sm text-sm  underline'><a href={user.url}>{user.url}</a></p>
                     </div>
                 </div>
@@ -118,31 +110,90 @@ export default function story() {
                                 <div key={index} className="space-y-4">
                                     <div className='p-4 mt-4 space-y-3 rounded-lg hover:bg-[#171717]'>
                                         <div>
-                                            <Link to={`/users/${comment.by}`}> <span className="text-[#FC7D49] font-semibold hover:underline decoration-1 underline-offset-2 sm:text-sm text-sm hover:text-[#FF6600]">{comment.by} </span></Link>|<span className='sm:text-sm text-sm'> {comment.time}</span>
+                                            <Link to={`/users/${comment.by}`}>
+                                                <span className="text-[#FC7D49] font-semibold hover:underline decoration-1 underline-offset-2 sm:text-sm text-sm hover:text-[#FF6600]">{comment.by} </span>
+                                            </Link>|
+                                            <span className='sm:text-sm text-sm'> {comment.time}</span>
                                         </div>
                                         <div className='comment text-gray-200 sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: comment.text }} />
                                         {comment.kids && comment.kids.length > 0 &&
                                             comment.kids.map((item, index) => (
                                                 <>
-                                                    <div key={index} className='py-4 pl-8 overflow-hidden shadow-sm border-l-[0.01rem] border-l-neutral-800 transition-colors space-y-3  hover:bg-[#171717]'>
+                                                    <div key={index} className='py-4 pl-10 overflow-hidden shadow-sm border-l-[0.01rem] border-l-neutral-800 transition-colors space-y-3  hover:bg-[#171717]'>
                                                         <div>
                                                             <Link to={`/users/${item.by}`}>
                                                                 <span className="text-[#FC7D49] font-semibold hover:underline decoration-1 underline-offset-2 sm:text-sm text-sm hover:text-[#FF6600]">
                                                                     {item.by}
-                                                                </span></Link>|<span className='sm:text-sm text-sm'> {item.time}</span>
+                                                                </span>
+                                                            </Link>|
+                                                            <span className='sm:text-sm text-sm'> {item.time}</span>
                                                         </div>
                                                         <div className='comment text-gray-200 sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: item.text }} />
-                                                    </div>
+                                                        {item.kids && item.kids.length > 0 &&
+                                                            item.kids.map((layer2, index) => (
+                                                                <>
+                                                                    <div key={index} className='py-4 pl-10 overflow-hidden shadow-sm border-l-[0.01rem] border-l-neutral-800 transition-colors space-y-3  hover:bg-[#171717]'>
+                                                                        <div>
+                                                                            <Link to={`/users/${layer2.by}`}>
+                                                                                <span className="text-[#FC7D49] font-semibold hover:underline decoration-1 underline-offset-2 sm:text-sm text-sm hover:text-[#FF6600]">
+                                                                                    {layer2.by}
+                                                                                </span>
+                                                                            </Link>|
+                                                                            <span className='sm:text-sm text-sm'> {layer2.time}</span>
+                                                                        </div>
+                                                                        <div className='comment text-gray-200 sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: layer2.text }} />
+                                                                        {layer2.kids && layer2.kids.length > 0 &&
+                                                                            layer2.kids.map((layer3, index) => (
+                                                                                <>
+                                                                                    <div key={index} className='py-4 pl-10 overflow-hidden shadow-sm border-l-[0.01rem] border-l-neutral-800 transition-colors space-y-3  hover:bg-[#171717]'>
+                                                                                        <div>
+                                                                                            <Link to={`/users/${layer3.by}`}>
+                                                                                                <span className="text-[#FC7D49] font-semibold hover:underline decoration-1 underline-offset-2 sm:text-sm text-sm hover:text-[#FF6600]">
+                                                                                                    {layer3.by}
+                                                                                                </span>
+                                                                                            </Link>|
+                                                                                            <span className='sm:text-sm text-sm'> {layer3.time}</span>
+                                                                                        </div>
+                                                                                        <div className='comment text-gray-200 sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: layer3.text }} />
+                                                                                        {
+                                                                                            layer3.kids && layer3.kids.length > 0 &&
+                                                                                            layer3.kids.map((layer4, index) => (
+                                                                                                <>
+                                                                                                    <div key={index} className='py-4 pl-10 overflow-hidden shadow-sm border-l-[0.01rem] border-l-neutral-800 transition-colors space-y-3  hover:bg-[#171717]'>
+                                                                                                        <div>
+                                                                                                            <Link to={`/users/${layer4.by}`}>
+                                                                                                                <span className="text-[#FC7D49] font-semibold hover:underline decoration-1 underline-offset-2 sm:text-sm text-sm hover:text-[#FF6600]">
+                                                                                                                    {layer4.by}
+                                                                                                                </span>
+                                                                                                            </Link>|
+                                                                                                            <span className='sm:text-sm text-sm'> {layer4.time}</span>
+                                                                                                        </div>
+                                                                                                        <div className='comment text-gray-200 sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: layer4.text }} />
+                                                                                                    </div>
+                                                                                                </>
+                                                                                            ))
+                                                                                        }
+                                                                                    </div>
+
+                                                                                </>
+                                                                            ))
+
+                                                                        }
+                                                                    </div>
+                                                                </>
+                                                            ))
+
+                                                        }
+                                                    </div >
                                                 </>
                                             ))
                                         }
-                                    </div>
+                                    </div >
                                     <div className="bg-[#171717] mt-5 h-0.5"></div>
                                 </div>
                             </>
-                        ))
-                        }
-                    </div>
+                        ))}
+                    </div >
                 </div>
             </main>}
         </>
