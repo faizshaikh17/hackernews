@@ -1,46 +1,78 @@
 @import "tailwindcss";
 
 body {
-    background-color: #111010;
-  }
-  
-  #root {
-    color: #FAFAFA;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 1rem;
-    background-color: #111010;
-    /* font-family: 'MozillaHeadline'; */
-    font-family: 'SpaceMono';
-    /* letter-spacing: 0.03rem; */
-  }
-  
-  
-  @font-face {
-      font-family: 'SpaceMono';
-      src: url('/fonts/SpaceMono-Regular.woff2') format('woff2');
-      font-weight: 400; /* Regular */
-      font-style: normal;
-    }
-  
-  
-  @font-face {
-      font-family: 'MozillaHeadline';
-      src: url('/public/fonts/MozillaHeadline-Regular.woff2') format('woff2');
-      font-weight: 400; /* Regular */
-      font-style: normal;
-    }
-    
-    @font-face {
-      font-family: 'MozillaHeadline';
-      src: url('/public/fonts/MozillaHeadline-SemiBold.woff2') format('woff2');
-      font-weight: 600; /* SemiBold */
-      font-style: normal;
-    }
-    
-    @font-face {
-      font-family: 'MozillaHeadline';
-      src: url('/public/fonts/MozillaHeadline-Bold.woff2') format('woff2');
-      font-weight: 700; /* Bold */
-      font-style: normal;
-    }
+  background-color: #111010;
+}
+
+#root {
+  color: #FAFAFA;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 1rem;
+  background-color: #111010;
+  /* font-family: 'MozillaHeadline'; */
+  /* font-family: 'SpaceMono'; */
+  /* font-family: "Bricolage Grotesque", sans-serif; */
+  /* font-family: "Poppins", sans-serif; */
+
+  /* letter-spacing: 0.03rem; */
+}
+
+
+@font-face {
+  font-family: 'SpaceMono';
+  src: url('/fonts/SpaceMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  /* Regular */
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'MozillaHeadline';
+  src: url('/public/fonts/MozillaHeadline-Regular.woff2') format('woff2');
+  font-weight: 400;
+  /* Regular */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MozillaHeadline';
+  src: url('/public/fonts/MozillaHeadline-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  /* SemiBold */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MozillaHeadline';
+  src: url('/public/fonts/MozillaHeadline-Bold.woff2') format('woff2');
+  font-weight: 700;
+  /* Bold */
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.comment a {
+  text-decoration: underline;
+  color: #FC7D49;
+}
+
+.comment>a:hover {
+  text-decoration: underline;
+  color: #FF6600;
+}
