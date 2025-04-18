@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { fetchTopStories, fetchItemsById, fetchUserById } from '../utils/utils'
 import { useLocation, useParams } from 'react-router-dom'
-
+import { Triangle } from 'lucide-react';
 
 export default function UserProfile() {
     const [user, setUser] = useState([])

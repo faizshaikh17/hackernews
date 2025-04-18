@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { fetchTopStories, fetchItemsById } from '../utils/utils'
 import { Link } from 'react-router-dom'
-
+import { Triangle, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
 
 const fetchStories = async () => {
     try {
@@ -9,7 +9,7 @@ const fetchStories = async () => {
         if (!storyIds) {
             throw new Error("no response");
         }
-        const stories = storyIds.slice(25, 35).map(async (id) => {
+        const stories = storyIds.slice(0, 20).map(async (id) => {
             const story = await fetchItemsById(id);
             if (!story) {
                 throw new Error("no response");
@@ -42,18 +42,25 @@ const fetchStories = async () => {
 export default function Main() {
     const [topStories, setTopStories] = useState([]);
     const [loading, setLoading] = useState(true)
+    const [page, setPage] = useState(1)
+    const [limit, setLimit] = useState(10)
+    const [totalPages, setTotalPages] = useState(10)
     useEffect(() => {
         setLoading(true)
+
         fetchStories().then(newStories => setTopStories(prev => {
             const unique = newStories.filter(newStory => !prev.some(prevStory => newStory.id === prevStory.id))
             setLoading(false)
+            setTotalPages(topStories.length / limit)
 
             return [...prev, ...unique]
         }
+
         ))
     }, [])
 
-if(loading)return <p className='p-4'>loading...</p>
+
+    if (loading) return <p className='h-60 font-semibold sm:text-[1.05rem] text-base  flex items-center justify-center'>Loading...</p>
     return (
         <main className='min-h-screen tracking-tight my-4'>
             <div className='space-y-5 '>
@@ -63,18 +70,31 @@ if(loading)return <p className='p-4'>loading...</p>
                             <div className='spacye-y-4'>
                                 <div className=' space-y-1.5 p-3.5 hover:bg-[#171717]'>
                                     <p className=' hover:text-[#FC7D49] font-semibold hover:underline sm:text-[1.05rem] text-base'><a href={item.url}>{item.title}</a></p>
-                                    <Link to={`/users/${item.by}`}>
-                                        <p className='text-xs sm:text-sm text-gray-400'>by <span className='text-[#FC7D49] underline'>{item.by}</span></p>
-                                    </Link>
-                                    <span className='text-xs sm:text-sm text-gray-400'>Score {item.score} | {item.time} </span>
-
-                                    <br />
+                                    <p className='text-xs sm:text-sm text-gray-400'>by{' '}
+                                        <Link to={`/users/${item.by}`}>
+                                            <span className='text-[#FC7D49] underline'>{item.by}</span>
+                                        </Link>
+                                    </p>
+                                    <span className='text-xs sm:text-sm flex items-center gap-1 text-gray-400'><Triangle size={12} /> {item.score} Score  | {item.time} </span>
                                 </div>
                                 <div className='bg-[#171717] mt-5 h-0.5'></div>
                             </div>
 
                         </>
                     ))
+                }
+            </div>
+            <div>
+                {
+                    <>
+                        <div className='flex justify-center items-center gap-8'>
+                            <ChevronsLeft size={20} />
+                            <ChevronLeft size={20} />
+                            {page}|{totalPages}
+                            <ChevronRight size={20} />
+                            <ChevronsRight size={20} />
+                        </div>
+                    </>
                 }
             </div>
         </main>
