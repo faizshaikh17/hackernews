@@ -119,7 +119,7 @@ export default function story() {
                                         {comment.kids && comment.kids.length > 0 &&
                                             comment.kids.map((item, index) => (
                                                 <>
-                                                    <div key={index} className='py-5 pl-10 pr-4 border-l-[0.01rem] border-l-neutral-300 transition-all duration-200 hover:bg-[#FFFFFF] hover:shadow-xs'>
+                                                    <div key={index} className='py-5 comment pl-10 pr-4 border-l-[0.01rem] border-l-neutral-300 transition-all duration-200 hover:bg-[#FFFFFF] hover:shadow-xs'>
                                                         <div className="flex items-center gap-2">
                                                             <Link to={`/users/${item.by}`}>
                                                                 <span className="text-[#121212] font-semibold hover:underline underline-offset-4 transition-colors sm:text-sm text-sm">
@@ -132,7 +132,7 @@ export default function story() {
                                                         {item.kids && item.kids.length > 0 &&
                                                             item.kids.map((layer2, index) => (
                                                                 <>
-                                                                    <div key={index} className='py-5 pl-10 pr-4 border-l-[0.01rem] border-l-neutral-300 transition-all duration-200 hover:bg-[#FFFFFF] hover:shadow-xs'>
+                                                                    <div key={index} className='py-5 comment pl-10 pr-4 border-l-[0.01rem] border-l-neutral-300 transition-all duration-200 hover:bg-[#FFFFFF] hover:shadow-xs'>
                                                                         <div className="flex items-center gap-2">
                                                                             <Link to={`/users/${layer2.by}`}>
                                                                                 <span className="text-[#121212] font-semibold hover:underline underline-offset-4 transition-colors sm:text-sm text-sm">
@@ -145,7 +145,7 @@ export default function story() {
                                                                         {layer2.kids && layer2.kids.length > 0 &&
                                                                             layer2.kids.map((layer3, index) => (
                                                                                 <>
-                                                                                    <div key={index} className='py-5 pl-10 pr-4 border-l-[0.01rem] border-l-neutral-300 transition-all duration-200 hover:bg-[#FFFFFF] hover:shadow-xs'>
+                                                                                    <div key={index} className='py-5 comment pl-10 pr-4 border-l-[0.01rem] border-l-neutral-300 transition-all duration-200 hover:bg-[#FFFFFF] hover:shadow-xs'>
                                                                                         <div className="flex items-center gap-2">
                                                                                             <Link to={`/users/${layer3.by}`}>
                                                                                                 <span className="text-[#121212] font-semibold hover:underline underline-offset-4 transition-colors sm:text-sm text-sm">
@@ -159,7 +159,7 @@ export default function story() {
                                                                                             layer3.kids && layer3.kids.length > 0 &&
                                                                                             layer3.kids.map((layer4, index) => (
                                                                                                 <>
-                                                                                                    <div key={index} className='py-5 pl-10 pr-4 border-l-[0.01rem] border-l-neutral-300 transition-all duration-200 hover:bg-[#FFFFFF] hover:shadow-xs'>
+                                                                                                    <div key={index} className='py-5 comment pl-10 pr-4 border-l-[0.01rem] border-l-neutral-300 transition-all duration-200 hover:bg-[#FFFFFF] hover:shadow-xs'>
                                                                                                         <div className="flex items-center gap-2">
                                                                                                             <Link to={`/users/${layer4.by}`}>
                                                                                                                 <span className="text-[#121212] font-semibold hover:underline underline-offset-4 transition-colors sm:text-sm text-sm">
