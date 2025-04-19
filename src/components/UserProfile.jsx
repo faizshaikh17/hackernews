@@ -49,8 +49,8 @@ export default function UserProfile() {
                   .getDate()
                   .toString()
                   .padStart(2, '0')}/${(new Date(user.created * 1000).getMonth() + 1)
-                  .toString()
-                  .padStart(2, '0')}/${new Date(user.created * 1000).getFullYear()}`}
+                    .toString()
+                    .padStart(2, '0')}/${new Date(user.created * 1000).getFullYear()}`}
               </p>
               <p>
                 <span className="text-gray-800">Karma: </span>

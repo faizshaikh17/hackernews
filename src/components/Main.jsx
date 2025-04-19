@@ -149,7 +149,7 @@ export default function Main() {
                     <button
                         onClick={prevPointer}
                         disabled={page === 1}
-                        className="flex items-center justify-center rounded-lg h-10 w-10 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus:outline-none focus:ring-2 focus:ring-neutral-800 focus:ring-opacity-50"
+                        className="flex items-center justify-center rounded-lg h-10 w-10 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                         aria-label="Go to first page"
                     >
                         <ChevronsLeft size={18} />
@@ -157,7 +157,7 @@ export default function Main() {
                     <button
                         onClick={prevPage}
                         disabled={page === 1}
-                        className="flex items-center justify-center rounded-lg h-10 w-10 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus:outline-none focus:ring-2 focus:ring-neutral-800 focus:ring-opacity-50"
+                        className="flex items-center justify-center rounded-lg h-10 w-10 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                         aria-label="Previous page"
                     >
                         <ChevronLeft size={18} />
@@ -168,7 +168,7 @@ export default function Main() {
                     <button
                         onClick={nextPage}
                         disabled={page === totalPages}
-                        className="flex items-center justify-center rounded-lg h-10 w-10 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus:outline-none focus:ring-2 focus:ring-neutral-800 focus:ring-opacity-50"
+                        className="flex items-center justify-center rounded-lg h-10 w-10 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                         aria-label="Next page"
                     >
                         <ChevronRight size={18} />
@@ -176,7 +176,7 @@ export default function Main() {
                     <button
                         onClick={nextPointer}
                         disabled={page === totalPages}
-                        className="flex items-center justify-center rounded-lg h-10 w-10 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus:outline-none focus:ring-2 focus:ring-neutral-800 focus:ring-opacity-50"
+                        className="flex items-center justify-center rounded-lg h-10 w-10 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                         aria-label="Go to last page"
                     >
                         <ChevronsRight size={18} />
