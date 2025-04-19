@@ -13,8 +13,8 @@ body {
   font-family: "Bricolage Grotesque", sans-serif;
   /* font-family: "Poppins", sans-serif; */
   /* font-family: 'DuplicateSans'; */
-  /* overflow: hidden; */
-  /* white-space: wrap; */
+  overflow: hidden;
+  white-space: wrap;
   letter-spacing: 0.02rem;
 }
 
