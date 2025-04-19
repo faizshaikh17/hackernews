@@ -21,7 +21,7 @@ const fetchStories = async () => {
                 by: story.by,
                 kids: story.kids || [],
                 score: story.score,
-                time: `${new Date(story.time * 1000).getDate()}/${new Date(story.time * 1000).getMonth() + 1
+                time: `${new Date(story.time * 1000).getDate().toString().padStart(2, '0')}/${new Date(story.time * 1000).getMonth() + 1
                     }/${new Date(story.time * 1000).getFullYear()}`,
             };
         });

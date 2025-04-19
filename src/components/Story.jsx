@@ -41,7 +41,7 @@ export default function story() {
                 const nestedComments = await fetchComments(comments.kids || [])
                 return {
                     by: comments.by,
-                    time: `${new Date(comments.time * 1000).getDate()}/${new Date(comments.time * 1000).getMonth() + 1}/${new Date(comments.time * 1000).getFullYear()}`,
+                    time: `${new Date(comments.time * 1000).getDate().toString().padStart(2, '0')}/${new Date(comments.time * 1000).getMonth() + 1}/${new Date(comments.time * 1000).getFullYear()}`,
                     text: comments.text,
                     kids: nestedComments,
                 }
