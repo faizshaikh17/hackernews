@@ -27,11 +27,12 @@ export default function UserProfile() {
 
   if (loading) {
     return (
-        <p className="h-60 font-semibold sm:text-[1.05rem] text-base flex items-center justify-center">
-            Loading...
-        </p>
+      <p className="h-60 font-semibold sm:text-[1.05rem] text-base flex items-center justify-center">
+        Loading...
+      </p>
     );
-}
+  }
+  console.log(user.created);
 
   return (
     <>
@@ -46,15 +47,14 @@ export default function UserProfile() {
                 <div>
                   <p>
                     <span className='text-gray-400 text-base'>Joined: </span>
-                    {`${new Date(user.created * 1000).getDate().toString()}/
-                      ${new Date(user.created * 1000).getMonth().toString()}/
-                      ${new Date(user.created * 1000).getFullYear().toString()}`}
+                    {`${new Date(user.created * 1000).getDate().toString().padStart(2, '0')}/${(new Date(user.created * 1000).getMonth() + 1).toString().padStart(2, '0')
+                      }/${new Date(user.created * 1000).getFullYear()}`}
                   </p>
                   <p>
                     <span className='text-gray-400 text-base'>Karma: </span>
                     {user.karma}
                   </p>
-                  <p>
+                  <p className='flex gap-1'>
                     <span className='text-gray-400 text-base'>About: </span>
                     {<div dangerouslySetInnerHTML={{ __html: user.about }}></div> || 'There should be description here somewhere...'}
                   </p>

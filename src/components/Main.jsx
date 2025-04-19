@@ -9,7 +9,7 @@ const fetchStories = async () => {
         if (!storyIds) {
             throw new Error('no response');
         }
-        const stories = storyIds.slice(0, 30).map(async (id) => {
+        const stories = storyIds.slice(0, 500).map(async (id) => {
             const story = await fetchItemsById(id);
             if (!story) {
                 throw new Error('no response');
@@ -114,7 +114,6 @@ export default function Main() {
                                     <span className="text-[#FC7D49] hover:text-[#FF6600] hover:underline underline-offset-2">
                                         {item.kids.length} comments
                                     </span>
-                                    {console.log(item.kids.length)}
                                 </Link>
                                 | <Triangle size={12} /> {item.score} Score | {item.time}
                             </span>
