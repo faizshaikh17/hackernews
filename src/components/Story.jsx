@@ -186,7 +186,7 @@ export default function story() {
                                             ))
                                         }
                                     </div>
-                                    <div className="bg-neutral-800 mt-5 h-[0.01rem]"></div>
+                                    {/* <div className="bg-neutral-800 mt-5 h-[0.01rem]"></div> */}
                                 </div>
                             </>
                         ))}
