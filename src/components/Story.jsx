@@ -68,7 +68,7 @@ export default function story() {
 
     if (loading) {
         return (
-            <p className="h-60 font-semibold sm:text-[1.05rem] text-base flex items-center justify-center">
+            <p className="min-h-60 flex items-center justify-center font-semibold sm:text-[1.05rem] text-base animate-pulse">
                 Loading...
             </p>
         );
@@ -76,99 +76,99 @@ export default function story() {
 
     return (
         <>
-            {<main className='min-h-screen my-2'>
+            {<main className='min-h-screen my-6 px-4 sm:px-6 lg:px-8'>
                 <div>
-                    <div className="space-y-4 p-4">
-                        <p className="sm:text-4xl font-medium text-lg">
-                            <a href={user.url} target="_blank" rel="noopener noreferrer">
+                    <div className="space-y-4 p-4 border-[0.01rem] border-neutral-800 rounded-lg transition-all duration-200 hover:bg-[#FFFFFF] hover:shadow-sm">
+                        <p className="sm:text-4xl font-semibold text-lg leading-tight">
+                            <a href={user.url} target="_blank" rel="noopener noreferrer" className="text-[#121212] hover:underline focus:outline-none focus:ring-2 focus:ring-neutral-800 focus:ring-opacity-50">
                                 {user.title}
                             </a>
                         </p>
-                        <span className="text-sm sm:text-base flex items-center gap-1 text-gray-400">
-                            <p className=" text-gray-400">
+                        <span className="text-sm sm:text-base flex items-center gap-2 text-gray-800 flex-wrap">
+                            <p className="text-gray-800">
                                 by{' '}
                                 <Link to={`/users/${user.by}`}>
-                                    <span className="text-[#FC7D49] hover:text-[#FF6600] underline underline-offset-2">
+                                    <span className="text-[#121212] hover:underline underline-offset-4 transition-colors">
                                         {user.by}
                                     </span>
                                 </Link>
                             </p>
                             <Link to={`/story/${user.id}`}>
-                                <span className="text-[#FC7D49] hover:text-[#FF6600] hover:underline underline-offset-2">
+                                <span className="text-[#121212] hover:underline underline-offset-4 transition-colors">
                                 </span>
                             </Link>
                             |  {user.score} Score | {`${new Date(user.time * 1000).getDate().toString()}/${new Date(user.time * 1000).getMonth().toString()}/${new Date(user.time * 1000).getFullYear().toString()}`}
                         </span>
-                        <p className='text-[#FC7D49] underline'><a href={user.url}>{user.url}</a></p>
+                        <p className='text-[#121212] underline underline-offset-4 transition-colors hover:text-gray-600 truncate'><a href={user.url}>{user.url}</a></p>
                     </div>
                 </div>
-                <div className="space-y-2.5 p-4">
-                    <p className='sm:text-2xl text-lg'>Comments</p>
+                <div className="space-y-2.5 py-4">
+                    <p className='sm:text-2xl text-lg font-semibold text-[#121212]'>Comments</p>
                     <div>
                         {comments.map((comment, index) => (
                             <>
                                 <div key={index} className="space-y-4">
-                                    <div className='p-4 mt-4 rounded-lg hover:bg-[#171717]'>
-                                        <div>
+                                    <div className='p-4 mt-4 rounded-lg border-[0.01rem] border-neutral-800 transition-all duration-200 hover:bg-[#FFFFFF] hover:shadow-sm'>
+                                        <div className="flex items-center gap-2">
                                             <Link to={`/users/${comment.by}`}>
-                                                <span className="text-[#FC7D49] font-semibold hover:underline decoration-1 underline-offset-2 sm:text-base text-sm hover:text-[#FF6600]">{comment.by} </span>
+                                                <span className="text-[#121212] font-semibold hover:underline underline-offset-4 transition-colors sm:text-base text-sm">{comment.by} </span>
                                             </Link>|
-                                            <span className='sm:text-base text-sm'> {comment.time}</span>
+                                            <span className='sm:text-base text-sm text-gray-800'> {comment.time}</span>
                                         </div>
-                                        <div className='comment text-gray-200 font-medium sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: comment.text }} />
+                                        <div className='comment prose prose-sm max-w-none text-gray-800 font-medium sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: comment.text }} />
                                         {comment.kids && comment.kids.length > 0 &&
                                             comment.kids.map((item, index) => (
                                                 <>
-                                                    <div key={index} className='py-5 pl-10 overflow-hidden shadow-sm border-l-[0.01rem] border-l-neutral-800 transition-colors  hover:bg-[#171717]'>
-                                                        <div>
+                                                    <div key={index} className='py-5 pl-10 pr-4 border-l-[0.01rem] border-l-neutral-300 transition-all duration-200 hover:bg-[#FFFFFF] hover:shadow-xs'>
+                                                        <div className="flex items-center gap-2">
                                                             <Link to={`/users/${item.by}`}>
-                                                                <span className="text-[#FC7D49] font-semibold hover:underline decoration-1 underline-offset-2 sm:text-sm text-sm hover:text-[#FF6600]">
+                                                                <span className="text-[#121212] font-semibold hover:underline underline-offset-4 transition-colors sm:text-sm text-sm">
                                                                     {item.by}
                                                                 </span>
                                                             </Link>|
-                                                            <span className='sm:text-sm text-sm'> {item.time}</span>
+                                                            <span className='sm:text-sm text-sm text-gray-800'> {item.time}</span>
                                                         </div>
-                                                        <div className='comment text-gray-200 sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: item.text }} />
+                                                        <div className='comment prose prose-sm max-w-none text-gray-800 sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: item.text }} />
                                                         {item.kids && item.kids.length > 0 &&
                                                             item.kids.map((layer2, index) => (
                                                                 <>
-                                                                    <div key={index} className='py-5 pl-10 overflow-hidden shadow-sm border-l-[0.01rem] border-l-neutral-800 transition-colors  hover:bg-[#171717]'>
-                                                                        <div>
+                                                                    <div key={index} className='py-5 pl-10 pr-4 border-l-[0.01rem] border-l-neutral-300 transition-all duration-200 hover:bg-[#FFFFFF] hover:shadow-xs'>
+                                                                        <div className="flex items-center gap-2">
                                                                             <Link to={`/users/${layer2.by}`}>
-                                                                                <span className="text-[#FC7D49] font-semibold hover:underline decoration-1 underline-offset-2 sm:text-sm text-sm hover:text-[#FF6600]">
+                                                                                <span className="text-[#121212] font-semibold hover:underline underline-offset-4 transition-colors sm:text-sm text-sm">
                                                                                     {layer2.by}
                                                                                 </span>
                                                                             </Link>|
-                                                                            <span className='sm:text-sm text-sm'> {layer2.time}</span>
+                                                                            <span className='sm:text-sm text-sm text-gray-800'> {layer2.time}</span>
                                                                         </div>
-                                                                        <div className='comment text-gray-200 sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: layer2.text }} />
+                                                                        <div className='comment prose prose-sm max-w-none text-gray-800 sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: layer2.text }} />
                                                                         {layer2.kids && layer2.kids.length > 0 &&
                                                                             layer2.kids.map((layer3, index) => (
                                                                                 <>
-                                                                                    <div key={index} className='py-5 pl-10 overflow-hidden shadow-sm border-l-[0.01rem] border-l-neutral-800 transition-colors  hover:bg-[#171717]'>
-                                                                                        <div>
+                                                                                    <div key={index} className='py-5 pl-10 pr-4 border-l-[0.01rem] border-l-neutral-300 transition-all duration-200 hover:bg-[#FFFFFF] hover:shadow-xs'>
+                                                                                        <div className="flex items-center gap-2">
                                                                                             <Link to={`/users/${layer3.by}`}>
-                                                                                                <span className="text-[#FC7D49] font-semibold hover:underline decoration-1 underline-offset-2 sm:text-sm text-sm hover:text-[#FF6600]">
+                                                                                                <span className="text-[#121212] font-semibold hover:underline underline-offset-4 transition-colors sm:text-sm text-sm">
                                                                                                     {layer3.by}
                                                                                                 </span>
                                                                                             </Link>|
-                                                                                            <span className='sm:text-sm text-sm'> {layer3.time}</span>
+                                                                                            <span className='sm:text-sm text-sm text-gray-800'> {layer3.time}</span>
                                                                                         </div>
-                                                                                        <div className='comment text-gray-200 sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: layer3.text }} />
+                                                                                        <div className='comment prose prose-sm max-w-none text-gray-800 sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: layer3.text }} />
                                                                                         {
                                                                                             layer3.kids && layer3.kids.length > 0 &&
                                                                                             layer3.kids.map((layer4, index) => (
                                                                                                 <>
-                                                                                                    <div key={index} className='py-5 pl-10 overflow-hidden shadow-sm border-l-[0.01rem] border-l-neutral-800 transition-colors  hover:bg-[#171717]'>
-                                                                                                        <div>
+                                                                                                    <div key={index} className='py-5 pl-10 pr-4 border-l-[0.01rem] border-l-neutral-300 transition-all duration-200 hover:bg-[#FFFFFF] hover:shadow-xs'>
+                                                                                                        <div className="flex items-center gap-2">
                                                                                                             <Link to={`/users/${layer4.by}`}>
-                                                                                                                <span className="text-[#FC7D49] font-semibold hover:underline decoration-1 underline-offset-2 sm:text-sm text-sm hover:text-[#FF6600]">
+                                                                                                                <span className="text-[#121212] font-semibold hover:underline underline-offset-4 transition-colors sm:text-sm text-sm">
                                                                                                                     {layer4.by}
                                                                                                                 </span>
                                                                                                             </Link>|
-                                                                                                            <span className='sm:text-sm text-sm'> {layer4.time}</span>
+                                                                                                            <span className='sm:text-sm text-sm text-gray-800'> {layer4.time}</span>
                                                                                                         </div>
-                                                                                                        <div className='comment text-gray-200 sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: layer4.text }} />
+                                                                                                        <div className='comment prose prose-sm max-w-none text-gray-800 sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: layer4.text }} />
                                                                                                     </div>
                                                                                                 </>
                                                                                             ))
@@ -186,7 +186,7 @@ export default function story() {
                                             ))
                                         }
                                     </div>
-                                    <div className="bg-[#171717] mt-5 h-0.5"></div>
+                                    <div className="bg-neutral-800 mt-5 h-[0.01rem]"></div>
                                 </div>
                             </>
                         ))}
@@ -196,16 +196,3 @@ export default function story() {
         </>
     )
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

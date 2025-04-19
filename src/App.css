@@ -1,19 +1,20 @@
 @import "tailwindcss";
 
 body {
-  background-color: #111010;
+  background-color: #FFFFFF;
 }
 
 #root {
-  color: #FAFAFA;
+  color: #121212;
   max-width: 780px;
   margin: 0 auto;
   padding: 1rem;
-  background-color: #111010;
+  background-color: #FFFFFF;
   font-family: "Bricolage Grotesque", sans-serif;
   /* font-family: "Poppins", sans-serif; */
   /* font-family: 'DuplicateSans'; */
-
+  /* overflow: hidden; */
+  /* white-space: wrap; */
   letter-spacing: 0.02rem;
 }
 
@@ -54,12 +55,12 @@ body {
 
 .comment a {
   text-decoration: underline;
-  color: #FC7D49;
+  color: #121212;
 }
 
 .comment>a:hover {
   text-decoration: underline;
-  color: #FF6600;
+  color: #121212;
 }
 
 .comment > code {
