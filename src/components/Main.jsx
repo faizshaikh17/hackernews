@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom';
 import { Triangle, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
 import pLimit from 'p-limit';
 
-const fetchStories = async (concurrency = 100) => {
+const fetchStories = async (concurrency = 50) => {
     const limit = pLimit(concurrency);
     try {
         const storyIds = await fetchTopStories();
         if (!storyIds) {
             throw newError('no response');
         }
-        const storyPromise = storyIds.slice(0, 100).map((id) =>
+        const storyPromise = storyIds.slice(0, 50).map((id) =>
             limit(async () => {
                 const story = await fetchItemsById(id);
                 if (!story) {

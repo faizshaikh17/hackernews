@@ -53,8 +53,10 @@ body {
 
 
 .comment {
-  width: 100%; /* Ensure comment container stays within parent */
-  overflow: hidden; /* Prevent content from spilling out */
+  max-width: 100%;
+  min-width: 50%;
+  overflow-wrap: anywhere; /* Break long URLs anywhere */
+  word-break: break-word;
 }
 
 
