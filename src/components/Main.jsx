@@ -3,7 +3,6 @@ import { fetchTopStories, fetchItemsById } from '../utils/utils';
 import { Link } from 'react-router-dom';
 import { Triangle, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
 
-
 const fetchStories = async () => {
     try {
         const storyIds = await fetchTopStories();
@@ -45,7 +44,7 @@ export default function Main() {
     useEffect(() => {
         setLoading(true);
         fetchStories().then((newStories) => {
-            setTopStories(newStories); // Simplified: No duplicate filtering
+            setTopStories(newStories);
             setLoading(false);
             if (!newStories.length) {
                 setError('Failed to load stories. Please refresh.');
@@ -75,10 +74,9 @@ export default function Main() {
 
     const pageWiseStories = topStories.slice((page - 1) * limit, page * limit);
 
-
     if (loading) {
         return (
-            <p className="h-60 font-semibold sm:text-[1.05rem] text-base flex items-center justify-center">
+            <p className="h-60 font-semibold lg:text-[1.3rem] text-lg flex items-center justify-center">
                 Loading...
             </p>
         );
@@ -86,7 +84,7 @@ export default function Main() {
 
     if (error && !topStories.length) {
         return (
-            <p className="h-60 font-semibold sm:text-[1.05rem] text-base flex items-center justify-center text-red-500">
+            <p className="h-60 font-semibold lg:text-[1.3rem] text-lg flex items-center justify-center text-red-500">
                 {error}
             </p>
         );
@@ -98,12 +96,12 @@ export default function Main() {
                 {pageWiseStories.map((item) => (
                     <div key={item.id} className="space-y-4">
                         <div className="space-y-2.5 p-3.5 hover:bg-[#171717]">
-                            <p className="hover:text-[#FC7D49] font-semibold hover:underline sm:text-[1rem] text-base">
+                            <p className="hover:text-[#FC7D49] font-semibold hover:underline lg:text-[1.25rem] text-lg">
                                 <a href={item.url} target="_blank" rel="noopener noreferrer">
                                     {item.title}
                                 </a>
                             </p>
-                            <p className="text-xs sm:text-sm text-gray-400">
+                            <p className="text-sm lg:text-base text-gray-400">
                                 by{' '}
                                 <Link to={`/users/${item.by}`}>
                                     <span className="text-[#FC7D49] hover:text-[#FF6600] underline underline-offset-2">
@@ -111,7 +109,7 @@ export default function Main() {
                                     </span>
                                 </Link>
                             </p>
-                            <span className="text-xs sm:text-sm flex items-center gap-1 text-gray-400">
+                            <span className="text-sm lg:text-base flex items-center gap-1 text-gray-400">
                                 <Link to={`/story/${item.id}`}>
                                     <span className="text-[#FC7D49] hover:text-[#FF6600] hover:underline underline-offset-2">
                                         {item.kids.length} comments
@@ -143,7 +141,7 @@ export default function Main() {
                     >
                         <ChevronLeft size={20} />
                     </button>
-                    <span className="text-base">
+                    <span className="text-lg">
                         {page} / {totalPages}
                     </span>
                     <button

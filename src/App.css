@@ -10,11 +10,11 @@ body {
   margin: 0 auto;
   padding: 1rem;
   background-color: #111010;
-  /* font-family: "Bricolage Grotesque", sans-serif; */
+  font-family: "Bricolage Grotesque", sans-serif;
   /* font-family: "Poppins", sans-serif; */
-  font-family: 'DuplicateSans';
+  /* font-family: 'DuplicateSans'; */
 
-  letter-spacing: 0.03rem;
+  letter-spacing: 0.02rem;
 }
 
 
@@ -60,4 +60,28 @@ body {
 .comment>a:hover {
   text-decoration: underline;
   color: #FF6600;
+}
+
+.comment > code {
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  background-color: #f4f4f4;
+  padding: 2px 4px;
+  border-radius: 4px;
+  color: #d63333;
+  font-size: 0.9em;
+}
+
+
+.comment > pre code {
+  display: block;
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+  padding: 1rem;
+  border-radius: 6px;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  line-height: 1.5;
+  font-size: 0.95em;
+  overflow: hidden;
+  white-space: wrap;
+  margin: 2rem;
 }

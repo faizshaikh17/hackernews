@@ -76,16 +76,16 @@ export default function story() {
 
     return (
         <>
-            {<main className='min-h-screen p-4.5 my-2'>
+            {<main className='min-h-screen my-2'>
                 <div>
-                    <div className="space-y-4 p-3.5">
-                        <p className="sm:text-3xl text-lg">
+                    <div className="space-y-4 p-4">
+                        <p className="sm:text-4xl font-medium text-lg">
                             <a href={user.url} target="_blank" rel="noopener noreferrer">
                                 {user.title}
                             </a>
                         </p>
-                        <span className="text-xs sm:text-sm flex items-center gap-1 text-gray-400">
-                            <p className="text-xs sm:text-sm text-gray-400">
+                        <span className="text-sm sm:text-base flex items-center gap-1 text-gray-400">
+                            <p className=" text-gray-400">
                                 by{' '}
                                 <Link to={`/users/${user.by}`}>
                                     <span className="text-[#FC7D49] hover:text-[#FF6600] underline underline-offset-2">
@@ -97,29 +97,29 @@ export default function story() {
                                 <span className="text-[#FC7D49] hover:text-[#FF6600] hover:underline underline-offset-2">
                                 </span>
                             </Link>
-                            | <Triangle size={12} /> {user.score} Score | {`${new Date(user.time * 1000).getDate().toString()}/${new Date(user.time * 1000).getMonth().toString()}/${new Date(user.time * 1000).getFullYear().toString()}`}
+                            |  {user.score} Score | {`${new Date(user.time * 1000).getDate().toString()}/${new Date(user.time * 1000).getMonth().toString()}/${new Date(user.time * 1000).getFullYear().toString()}`}
                         </span>
-                        <p className='text-[#FC7D49] sm:text-sm text-sm  underline'><a href={user.url}>{user.url}</a></p>
+                        <p className='text-[#FC7D49] underline'><a href={user.url}>{user.url}</a></p>
                     </div>
                 </div>
                 <div className="space-y-2.5 p-4">
-                    <p className='sm:text-lg text-lg'>Comments</p>
+                    <p className='sm:text-2xl text-lg'>Comments</p>
                     <div>
                         {comments.map((comment, index) => (
                             <>
                                 <div key={index} className="space-y-4">
-                                    <div className='p-4 mt-4 space-y-3 rounded-lg hover:bg-[#171717]'>
+                                    <div className='p-4 mt-4 rounded-lg hover:bg-[#171717]'>
                                         <div>
                                             <Link to={`/users/${comment.by}`}>
-                                                <span className="text-[#FC7D49] font-semibold hover:underline decoration-1 underline-offset-2 sm:text-sm text-sm hover:text-[#FF6600]">{comment.by} </span>
+                                                <span className="text-[#FC7D49] font-semibold hover:underline decoration-1 underline-offset-2 sm:text-base text-sm hover:text-[#FF6600]">{comment.by} </span>
                                             </Link>|
-                                            <span className='sm:text-sm text-sm'> {comment.time}</span>
+                                            <span className='sm:text-base text-sm'> {comment.time}</span>
                                         </div>
-                                        <div className='comment text-gray-200 sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: comment.text }} />
+                                        <div className='comment text-gray-200 font-medium sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: comment.text }} />
                                         {comment.kids && comment.kids.length > 0 &&
                                             comment.kids.map((item, index) => (
                                                 <>
-                                                    <div key={index} className='py-4 pl-10 overflow-hidden shadow-sm border-l-[0.01rem] border-l-neutral-800 transition-colors space-y-3  hover:bg-[#171717]'>
+                                                    <div key={index} className='py-5 pl-10 overflow-hidden shadow-sm border-l-[0.01rem] border-l-neutral-800 transition-colors  hover:bg-[#171717]'>
                                                         <div>
                                                             <Link to={`/users/${item.by}`}>
                                                                 <span className="text-[#FC7D49] font-semibold hover:underline decoration-1 underline-offset-2 sm:text-sm text-sm hover:text-[#FF6600]">
@@ -132,7 +132,7 @@ export default function story() {
                                                         {item.kids && item.kids.length > 0 &&
                                                             item.kids.map((layer2, index) => (
                                                                 <>
-                                                                    <div key={index} className='py-4 pl-10 overflow-hidden shadow-sm border-l-[0.01rem] border-l-neutral-800 transition-colors space-y-3  hover:bg-[#171717]'>
+                                                                    <div key={index} className='py-5 pl-10 overflow-hidden shadow-sm border-l-[0.01rem] border-l-neutral-800 transition-colors  hover:bg-[#171717]'>
                                                                         <div>
                                                                             <Link to={`/users/${layer2.by}`}>
                                                                                 <span className="text-[#FC7D49] font-semibold hover:underline decoration-1 underline-offset-2 sm:text-sm text-sm hover:text-[#FF6600]">
@@ -145,7 +145,7 @@ export default function story() {
                                                                         {layer2.kids && layer2.kids.length > 0 &&
                                                                             layer2.kids.map((layer3, index) => (
                                                                                 <>
-                                                                                    <div key={index} className='py-4 pl-10 overflow-hidden shadow-sm border-l-[0.01rem] border-l-neutral-800 transition-colors space-y-3  hover:bg-[#171717]'>
+                                                                                    <div key={index} className='py-5 pl-10 overflow-hidden shadow-sm border-l-[0.01rem] border-l-neutral-800 transition-colors  hover:bg-[#171717]'>
                                                                                         <div>
                                                                                             <Link to={`/users/${layer3.by}`}>
                                                                                                 <span className="text-[#FC7D49] font-semibold hover:underline decoration-1 underline-offset-2 sm:text-sm text-sm hover:text-[#FF6600]">
@@ -159,7 +159,7 @@ export default function story() {
                                                                                             layer3.kids && layer3.kids.length > 0 &&
                                                                                             layer3.kids.map((layer4, index) => (
                                                                                                 <>
-                                                                                                    <div key={index} className='py-4 pl-10 overflow-hidden shadow-sm border-l-[0.01rem] border-l-neutral-800 transition-colors space-y-3  hover:bg-[#171717]'>
+                                                                                                    <div key={index} className='py-5 pl-10 overflow-hidden shadow-sm border-l-[0.01rem] border-l-neutral-800 transition-colors  hover:bg-[#171717]'>
                                                                                                         <div>
                                                                                                             <Link to={`/users/${layer4.by}`}>
                                                                                                                 <span className="text-[#FC7D49] font-semibold hover:underline decoration-1 underline-offset-2 sm:text-sm text-sm hover:text-[#FF6600]">
@@ -174,28 +174,38 @@ export default function story() {
                                                                                             ))
                                                                                         }
                                                                                     </div>
-
                                                                                 </>
                                                                             ))
-
                                                                         }
                                                                     </div>
                                                                 </>
                                                             ))
-
                                                         }
-                                                    </div >
+                                                    </div>
                                                 </>
                                             ))
                                         }
-                                    </div >
+                                    </div>
                                     <div className="bg-[#171717] mt-5 h-0.5"></div>
                                 </div>
                             </>
                         ))}
-                    </div >
+                    </div>
                 </div>
             </main>}
         </>
     )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
