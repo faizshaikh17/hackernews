@@ -28,7 +28,6 @@ export default function story() {
         fetchUser(id);
     }, [id]);
 
-    console.log(user.kids);
 
     const fetchComments = async (ids) => {
         if (!ids || ids.length === 0) return null
@@ -64,7 +63,34 @@ export default function story() {
         setLoading(false)
     }, [user])
 
-    console.log(comments);
+    // useEffect(() => {
+    //     const lazyCommentDiv = document.getElementById('lazy')
+
+    //     const observer = new IntersectionObserver((entries, observer) => {
+    //         entries.forEach(entry => {
+    //             if (entry.isIntersecting) {
+    //                 const div = entry.target;
+    //                 comments.map(item => (
+    //                     div.ATTRIBUTE_NODE.dangerouslySetInnerHTML = { __html: item.text }
+    //                 ))
+    //                 observer.unobserve(div);
+    //             }
+    //         })
+    //     }, {
+    //         root: null,
+    //         rootMargin: '100px',
+    //         threshold: 0,
+    //     })
+
+    //     observer.observe(lazyCommentDiv)
+
+    //     return () => {
+    //         if (lazyCommentDiv) observer.unobserve(lazyCommentDiv)
+    //     }
+    // }, [])
+
+
+
 
     if (loading) {
         return (
@@ -73,6 +99,7 @@ export default function story() {
             </p>
         );
     }
+
 
     return (
         <>
@@ -103,7 +130,7 @@ export default function story() {
                     </div>
                 </div>
                 <div className="space-y-2.5 py-4">
-                    <p className='sm:text-xl text-lg font-semibold text-[#121212]'>Comments</p>
+                    <p className='sm:text-xl text-lg font-semibold text-[#121212]'>{loading ? 'Loading comments...' : 'Comments'}</p>
                     <div>
                         {comments.map((comment, index) => (
                             <>
@@ -115,7 +142,7 @@ export default function story() {
                                             </Link>|
                                             <span className='sm:text-base text-sm text-gray-800'> {comment.time}</span>
                                         </div>
-                                        <div className='comment prose prose-sm max-w-none text-gray-800 font-medium sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: comment.text }} />
+                                        <div id='lazy' className='comment prose prose-sm max-w-none text-gray-800 font-medium sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: comment.text }} />
                                         {comment.kids && comment.kids.length > 0 &&
                                             comment.kids.map((item, index) => (
                                                 <>
@@ -128,7 +155,7 @@ export default function story() {
                                                             </Link>|
                                                             <span className='sm:text-sm text-sm text-gray-800'> {item.time}</span>
                                                         </div>
-                                                        <div className='comment prose prose-sm max-w-none text-gray-800 sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: item.text }} />
+                                                        <div id='lazy' className='comment prose prose-sm max-w-none text-gray-800 sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: item.text }} />
                                                         {item.kids && item.kids.length > 0 &&
                                                             item.kids.map((layer2, index) => (
                                                                 <>
@@ -141,7 +168,7 @@ export default function story() {
                                                                             </Link>|
                                                                             <span className='sm:text-sm text-sm text-gray-800'> {layer2.time}</span>
                                                                         </div>
-                                                                        <div className='comment prose prose-sm max-w-none text-gray-800 sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: layer2.text }} />
+                                                                        <div id='lazy' className='comment prose prose-sm max-w-none text-gray-800 sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: layer2.text }} />
                                                                         {layer2.kids && layer2.kids.length > 0 &&
                                                                             layer2.kids.map((layer3, index) => (
                                                                                 <>
@@ -154,7 +181,7 @@ export default function story() {
                                                                                             </Link>|
                                                                                             <span className='sm:text-sm text-sm text-gray-800'> {layer3.time}</span>
                                                                                         </div>
-                                                                                        <div className='comment prose prose-sm max-w-none text-gray-800 sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: layer3.text }} />
+                                                                                        <div id='lazy' className='comment prose prose-sm max-w-none text-gray-800 sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: layer3.text }} />
                                                                                         {
                                                                                             layer3.kids && layer3.kids.length > 0 &&
                                                                                             layer3.kids.map((layer4, index) => (
@@ -168,7 +195,7 @@ export default function story() {
                                                                                                             </Link>|
                                                                                                             <span className='sm:text-sm text-sm text-gray-800'> {layer4.time}</span>
                                                                                                         </div>
-                                                                                                        <div className='comment prose prose-sm max-w-none text-gray-800 sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: layer4.text }} />
+                                                                                                        <div id='lazy' className='comment prose prose-sm max-w-none text-gray-800 sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: layer4.text }} />
                                                                                                     </div>
                                                                                                 </>
                                                                                             ))
@@ -192,6 +219,7 @@ export default function story() {
                         ))}
                     </div>
                 </div>
+
             </main>}
         </>
     )

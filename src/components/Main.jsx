@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom';
 import { Triangle, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
 import pLimit from 'p-limit';
 
-const fetchStories = async (concurrency = 20) => {
+const fetchStories = async (concurrency = 100) => {
     const limit = pLimit(concurrency);
     try {
         const storyIds = await fetchTopStories();
         if (!storyIds) {
             throw newError('no response');
         }
-        const storyPromise = storyIds.slice(0, 20).map((id) =>
+        const storyPromise = storyIds.slice(0, 100).map((id) =>
             limit(async () => {
                 const story = await fetchItemsById(id);
                 if (!story) {
@@ -25,9 +25,8 @@ const fetchStories = async (concurrency = 20) => {
                     by: story.by,
                     kids: story.kids || [],
                     score: story.score,
-                    time: `${new Date(story.time * 1000).getDate().toString().padStart(2, '0')}/${
-                        new Date(story.time * 1000).getMonth() + 1
-                    }/${new Date(story.time * 1000).getFullYear()}`,
+                    time: `${new Date(story.time * 1000).getDate().toString().padStart(2, '0')}/${new Date(story.time * 1000).getMonth() + 1
+                        }/${new Date(story.time * 1000).getFullYear()}`,
                 };
             })
         );
