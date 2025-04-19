@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 body {
-  background-color: #FFFFFF;
+  background-color: #121212;
 }
 
 #root {
@@ -46,7 +46,7 @@ body {
 
 @font-face {
   font-family: "Poppins", sans-serif;
-  font-weight: 400;
+  font-weight: 00;
   font-style: normal;
 }
 

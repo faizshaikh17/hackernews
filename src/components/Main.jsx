@@ -82,7 +82,7 @@ export default function Main() {
 
     if (loading) {
         return (
-            <div className="min-h-60 flex items-center justify-center">
+            <div className="min-h-screen flex items-start justify-center">
                 <p className="font-semibold lg:text-[1.3rem] text-lg animate-pulse">Loading...</p>
             </div>
         );
@@ -105,7 +105,7 @@ export default function Main() {
                         className="p-4 border-[0.01rem] border-neutral-800 rounded-lg transition-all duration-200 hover:bg-[#FFFFFF] hover:shadow-sm"
                     >
                         <div className="space-y-3">
-                            <h2 className="font-semibold lg:text-[1.25rem] text-lg leading-tight">
+                            <h2 className="font-semibold lg:text-[1.15rem] text-lg leading-tight">
                                 <a
                                     href={item.url}
                                     target="_blank"
