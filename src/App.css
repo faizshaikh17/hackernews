@@ -13,8 +13,6 @@ body {
   font-family: "Bricolage Grotesque", sans-serif;
   /* font-family: "Poppins", sans-serif; */
   /* font-family: 'DuplicateSans'; */
-  overflow: hidden;
-  white-space: wrap;
   letter-spacing: 0.02rem;
 }
 
@@ -56,6 +54,8 @@ body {
 .comment a {
   text-decoration: underline;
   color: #121212;
+  overflow: hidden;
+  white-space: wrap;
 }
 
 .comment>a:hover {
