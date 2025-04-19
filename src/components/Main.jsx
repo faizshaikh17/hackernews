@@ -9,7 +9,7 @@ const fetchStories = async () => {
         if (!storyIds) {
             throw new Error('no response');
         }
-        const stories = storyIds.slice(0, 500).map(async (id) => {
+        const stories = storyIds.slice(0, 100).map(async (id) => {
             const story = await fetchItemsById(id);
             if (!story) {
                 throw new Error('no response');
