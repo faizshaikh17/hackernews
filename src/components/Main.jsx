@@ -81,7 +81,7 @@ export default function Main() {
 
     if (loading) {
         return (
-            <div className="min-h-screen flex items-start justify-center">
+            <div className="min-h-screen flex items-center justify-center">
                 <p className="font-semibold lg:text-[1.3rem] text-lg animate-pulse">Loading...</p>
             </div>
         );
@@ -97,48 +97,51 @@ export default function Main() {
 
     return (
         <main className="min-h-screen space-y-6 tracking-tight my-6 px-2">
-            <div className="space-y-4 max-w-4xl mx-auto">
+            <div className="space-y-4 mx-4 max-w-4xl">
                 {pageWiseStories.map((item) => (
-                    <article
-                        key={item.id}
-                        className="p-4 border-b-[0.01rem] border-neutral-800 transition-all duration-200 hover:bg-[#171717] hover:shadow-sm"
-                    >
-                        <div className="space-y-3">
-                            <h2 className="font-semibold lg:text-[1.15rem] text-lg leading-tight">
-                                <a
-                                    href={item.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="hover:underline hover:text-[#FA7921] focus:outline-none focus:ring-2 focus:ring-neutral-800 focus:ring-opacity-50"
-                                >
-                                    {item.title}
-                                </a>
-                            </h2>
-                            <p className="text-sm lg:text-base text-gray-400">
-                                by{' '}
-                                <Link
-                                    to={`/users/${item.by}`}
-                                    className="text-[#FA7921] underline underline-offset-4 hover:text-[#FE9920] transition-colors"
-                                >
-                                    {item.by}
-                                </Link>
-                            </p>
-                            <div className="text-sm lg:text-base flex items-center gap-2 flex-wrap">
-                                <Link
-                                    to={`/story/${item.id}`}
-                                    className="text-[#FA7921] hover:underline underline-offset-4"
-                                >
-                                    {item.kids.length} comments
-                                </Link>
-                                <span className="text-gray-400">|</span>
-                                <span className="flex items-center gap-1">
-                                    <Triangle size={12} className="fill-current" /> {item.score} Score
-                                </span>
-                                <span className="text-gray-400">|</span>
-                                <span>{item.time}</span>
+                    <>
+                        <article
+                            key={item.id}
+                            className="p-4 transition-all duration-200 hover:bg-[#171717] hover:shadow-sm"
+                        >
+                            <div className="space-y-2">
+                                <h2 className=" lg:text-[1.15rem] text-base leading-tight">
+                                    <a
+                                        href={item.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="hover:underline hover:text-[#FA7921] focus:outline-none focus:ring-2 focus:ring-neutral-800 focus:ring-opacity-50"
+                                    >
+                                        {item.title}
+                                    </a>
+                                </h2>
+                                <p className="text-sm text-gray-400">
+                                    by{' '}
+                                    <Link
+                                        to={`/users/${item.by}`}
+                                        className="text-[#FA7921] underline underline-offset-4 hover:text-[#FE9920] transition-colors"
+                                    >
+                                        {item.by}
+                                    </Link>
+                                </p>
+                                <div className="text-sm flex items-center gap-2 flex-wrap">
+                                    <Link
+                                        to={`/story/${item.id}`}
+                                        className="text-[#FA7921] hover:underline underline-offset-4"
+                                    >
+                                        {item.kids.length} comments
+                                    </Link>
+                                    <span className="text-gray-400">|</span>
+                                    <span className="flex items-center gap-1">
+                                        <Triangle size={12} className="fill-current" /> {item.score} Score
+                                    </span>
+                                    <span className="text-gray-400">|</span>
+                                    <span>{item.time}</span>
+                                </div>
                             </div>
-                        </div>
-                    </article>
+                        </article>
+                        <div className='bg-[#171717] h-0.5 mt-4' />
+                    </>
                 ))}
             </div>
             {topStories.length > 0 && (

@@ -9,7 +9,7 @@ export default function Header() {
                     <Link to={'/'}>
                         <span className='text-[1.2rem] text-white font-semibold sm:text-[1.4rem]'>TheDaily<span className=' text-white '>Hacker</span></span>
                     </Link>
-                    <span className='text-white font-medium text-lg'><a href="https://github.com/faizshaikh17/newhackertimes" target="_blank" rel="noopener noreferrer">github</a></span>
+                    <span className='text-[#FA7921] hover:text-[#FE9920] underline  font-light text-lg'><a href="https://github.com/faizshaikh17/newhackertimes" target="_blank" rel="noopener noreferrer">github</a></span>
                 </div>
             </header>
         </>

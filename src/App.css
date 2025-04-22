@@ -10,10 +10,10 @@ body {
   margin: 0 auto;
   padding: 0.5rem;
   background-color: #121212;
-  /* font-family: "Bricolage Grotesque", sans-serif; */
-  font-family: "Poppins", sans-serif;
+  font-family: "Bricolage Grotesque", sans-serif;
+  /* font-family: "Poppins", sans-serif; */
   /* font-family: 'DuplicateSans'; */
-  letter-spacing: 0.02rem;
+  letter-spacing: 5%;
   width: 100%;
 }
 
@@ -62,7 +62,7 @@ body {
 
 .comment a {
   /* text-decoration: underline; */
-  color: #121212;
+  color: #FA7921;
   overflow-wrap: anywhere; /* Break long URLs anywhere */
   word-break: break-word; /* Break long words */
   display: inline-block; /* Ensure links wrap within container */
@@ -71,7 +71,7 @@ body {
 
 .comment > a:hover {
   text-decoration: underline;
-  color: #121212;
+  color: #FE9920;
 }
 
 .comment > code {

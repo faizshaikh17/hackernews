@@ -131,7 +131,7 @@ export default function story() {
         <>
             {<main className='min-h-screen my-6 px-4 sm:px-6 lg:px-8'>
                 <div>
-                    <div className="space-y-4 p-4 border-[0.01rem] border-neutral-800 rounded-lg transition-all duration-200 hover:bg-[#171717] hover:shadow-sm">
+                    <div className="space-y-4 p-4 border-[0.01rem] border-neutral-800 transition-all duration-200 hover:bg-[#171717] hover:shadow-sm">
                         <p className="sm:text-2xl font-semibold text-lg leading-tight">
                             {/* <a href={user.url} target="_blank" rel="noopener noreferrer" className="text-[#FA7921] hover:text-[#FE9920] hover:underline focus:outline-none focus:ring-2 focus:ring-neutral-800 focus:ring-opacity-50"> */}
                                 {user.title}

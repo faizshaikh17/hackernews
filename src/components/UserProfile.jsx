@@ -37,7 +37,7 @@ export default function UserProfile() {
   return (
     <main className="min-h-screen tracking-tight my-6 px-4 sm:px-6 lg:px-8">
       <section className="max-w-4xl mx-auto">
-        <article className="p-4 border-[0.01rem] border-neutral-800 rounded-lg transition-all duration-200 hover:bg-[#171717] hover:shadow-sm">
+        <article className="p-4 border-[0.01rem] border-neutral-800 transition-all hover:bg-[#171717] hover:shadow-sm">
           <div className="space-y-4">
             <h2 className="text-[#FA7921] hover:text-[#FE9920] transition-colors font-semibold sm:text-[1.3rem] text-base leading-tight">
               {username}
@@ -60,7 +60,7 @@ export default function UserProfile() {
                 <span className="text-gray-400">About: </span>
                 {user.about ? (
                   <div
-                    className="prose prose-sm max-w-none"
+                    className="prose comment prose-sm max-w-none"
                     dangerouslySetInnerHTML={{ __html: user.about }}
                   />
                 ) : (
