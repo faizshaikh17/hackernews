@@ -96,7 +96,7 @@ export default function Main() {
     }
 
     return (
-        <main className="min-h-screen space-y-6 tracking-tight my-6 px-4 sm:px-6 lg:px-8">
+        <main className="min-h-screen space-y-6 tracking-tight my-6 px-2">
             <div className="space-y-4 max-w-4xl mx-auto">
                 {pageWiseStories.map((item) => (
                     <article
