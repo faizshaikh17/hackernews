@@ -101,7 +101,7 @@ export default function Main() {
                 {pageWiseStories.map((item) => (
                     <article
                         key={item.id}
-                        className="p-4 border-[0.01rem] border-neutral-800 rounded-lg transition-all duration-200 hover:bg-[#FFFFFF] hover:shadow-sm"
+                        className="p-4 border-b-[0.01rem] border-neutral-800 transition-all duration-200 hover:bg-[#171717] hover:shadow-sm"
                     >
                         <div className="space-y-3">
                             <h2 className="font-semibold lg:text-[1.15rem] text-lg leading-tight">
@@ -109,24 +109,24 @@ export default function Main() {
                                     href={item.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="hover:underline focus:outline-none focus:ring-2 focus:ring-neutral-800 focus:ring-opacity-50"
+                                    className="hover:underline hover:text-[#FA7921] focus:outline-none focus:ring-2 focus:ring-neutral-800 focus:ring-opacity-50"
                                 >
                                     {item.title}
                                 </a>
                             </h2>
-                            <p className="text-sm lg:text-base text-gray-800">
+                            <p className="text-sm lg:text-base text-gray-400">
                                 by{' '}
                                 <Link
                                     to={`/users/${item.by}`}
-                                    className="text-[#121212] underline underline-offset-4 hover:text-gray-600 transition-colors"
+                                    className="text-[#FA7921] underline underline-offset-4 hover:text-[#FE9920] transition-colors"
                                 >
                                     {item.by}
                                 </Link>
                             </p>
-                            <div className="text-sm lg:text-base flex items-center gap-2 text-gray-800 flex-wrap">
+                            <div className="text-sm lg:text-base flex items-center gap-2 flex-wrap">
                                 <Link
                                     to={`/story/${item.id}`}
-                                    className="text-[#121212] hover:underline underline-offset-4"
+                                    className="text-[#FA7921] hover:underline underline-offset-4"
                                 >
                                     {item.kids.length} comments
                                 </Link>
@@ -149,7 +149,7 @@ export default function Main() {
                     <button
                         onClick={prevPointer}
                         disabled={page === 1}
-                        className="flex items-center justify-center rounded-lg h-10 w-10 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        className="flex items-center justify-center rounded-lg h-10 w-10 hover:bg-[#171717] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                         aria-label="Go to first page"
                     >
                         <ChevronsLeft size={18} />
@@ -157,7 +157,7 @@ export default function Main() {
                     <button
                         onClick={prevPage}
                         disabled={page === 1}
-                        className="flex items-center justify-center rounded-lg h-10 w-10 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        className="flex items-center justify-center rounded-lg h-10 w-10 hover:bg-[#171717] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                         aria-label="Previous page"
                     >
                         <ChevronLeft size={18} />
@@ -168,7 +168,7 @@ export default function Main() {
                     <button
                         onClick={nextPage}
                         disabled={page === totalPages}
-                        className="flex items-center justify-center rounded-lg h-10 w-10 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        className="flex items-center justify-center rounded-lg h-10 w-10 hover:bg-[#171717] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                         aria-label="Next page"
                     >
                         <ChevronRight size={18} />
@@ -176,7 +176,7 @@ export default function Main() {
                     <button
                         onClick={nextPointer}
                         disabled={page === totalPages}
-                        className="flex items-center justify-center rounded-lg h-10 w-10 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        className="flex items-center justify-center rounded-lg h-10 w-10 hover:bg-[#171717] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                         aria-label="Go to last page"
                     >
                         <ChevronsRight size={18} />

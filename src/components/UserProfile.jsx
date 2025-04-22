@@ -37,14 +37,14 @@ export default function UserProfile() {
   return (
     <main className="min-h-screen tracking-tight my-6 px-4 sm:px-6 lg:px-8">
       <section className="max-w-4xl mx-auto">
-        <article className="p-4 border-[0.01rem] border-neutral-800 rounded-lg transition-all duration-200 hover:bg-[#FFFFFF] hover:shadow-sm">
+        <article className="p-4 border-[0.01rem] border-neutral-800 rounded-lg transition-all duration-200 hover:bg-[#171717] hover:shadow-sm">
           <div className="space-y-4">
-            <h2 className="text-[#121212] font-semibold sm:text-[1.3rem] text-base leading-tight">
+            <h2 className="text-[#FA7921] hover:text-[#FE9920] transition-colors font-semibold sm:text-[1.3rem] text-base leading-tight">
               {username}
             </h2>
             <div className="space-y-2 text-base">
               <p>
-                <span className="text-gray-800">Joined: </span>
+                <span className="text-gray-400">Joined: </span>
                 {`${new Date(user.created * 1000)
                   .getDate()
                   .toString()
@@ -53,18 +53,18 @@ export default function UserProfile() {
                     .padStart(2, '0')}/${new Date(user.created * 1000).getFullYear()}`}
               </p>
               <p>
-                <span className="text-gray-800">Karma: </span>
-                {user.karma || 'N/A'}
+                <span className="text-gray-400">Karma: </span>
+                {user.karma}
               </p>
               <p className="flex gap-1">
-                <span className="text-gray-800">About: </span>
+                <span className="text-gray-400">About: </span>
                 {user.about ? (
                   <div
-                    className="prose prose-sm max-w-none text-gray-800"
+                    className="prose prose-sm max-w-none"
                     dangerouslySetInnerHTML={{ __html: user.about }}
                   />
                 ) : (
-                  <span className="text-gray-800">No description available...</span>
+                  <span>No description available...</span>
                 )}
               </p>
             </div>

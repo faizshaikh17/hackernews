@@ -5,11 +5,11 @@ body {
 }
 
 #root {
-  color: #121212;
+  color: #ffffff;
   max-width: 780px;
   margin: 0 auto;
   padding: 0.5rem;
-  background-color: #FFFFFF;
+  background-color: #121212;
   /* font-family: "Bricolage Grotesque", sans-serif; */
   font-family: "Poppins", sans-serif;
   /* font-family: 'DuplicateSans'; */
