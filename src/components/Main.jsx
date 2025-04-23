@@ -102,7 +102,7 @@ export default function Main() {
                     <>
                         <article
                             key={item.id}
-                            className="p-4 transition-all duration-200 hover:bg-[#171717] hover:shadow-sm"
+                            className="p-4 transition-all duration-200 rounded-md hover:bg-[#171717] hover:shadow-sm"
                         >
                             <div className="space-y-2">
                                 <h2 className=" lg:text-[1.15rem] text-base leading-tight">
@@ -140,7 +140,7 @@ export default function Main() {
                                 </div>
                             </div>
                         </article>
-                        <div className='bg-[#171717] h-0.5 mt-4' />
+                        <div className='bg-white/10 h-[1px] mt-4' />
                     </>
                 ))}
             </div>
