@@ -35,9 +35,9 @@ export default function UserProfile() {
   }
 
   return (
-    <main className="min-h-screen tracking-tight my-6 px-4 sm:px-6 lg:px-8">
+    <main className="min-h-screen tracking-tight dark:bg-[#121212] bg-[#f0f0f0] my-6 px-4 sm:px-6 lg:px-8">
       <section className="max-w-4xl mx-auto">
-        <article className="p-4 border-[0.01rem] border-neutral-800 transition-all hover:bg-[#171717] hover:shadow-sm">
+        <article className="p-4 border-[0.01rem] rounded-md border-neutral-800 transition-all hover:bg-gray-200 dark:hover:bg-[#171717] hover:shadow-sm">
           <div className="space-y-4">
             <h2 className="text-[#FA7921] hover:text-[#FE9920] transition-colors font-semibold sm:text-[1.3rem] text-base leading-tight">
               {username}

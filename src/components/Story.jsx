@@ -13,9 +13,9 @@ export function Comment({ childComment, index }) {
                         <Link to={`/users/${childComment.by}`}>
                             <span className="text-[#FA7921] hover:text-[#FE9920] font-semibold hover:underline underline-offset-4 transition-colors sm:text-base text-sm">{childComment.by} </span>
                         </Link>|
-                        <span className='sm:text-base text-sm text-gray-400'> {childComment.time}</span>
+                        <span className='sm:text-base text-sm dark:text-gray-400 text-black/90'> {childComment.time}</span>
                     </div>
-                    <div id='lazy' className='comment prose prose-sm max-w-none text-gray-400 sm:text-sm text-sm' dangerouslySetInnerHTML={{ __html: childComment.text }} />
+                    <div id='lazy' className='comment prose prose-sm max-w-none dark:text-gray-400 text-black/90 sm:text-sm text-sm' dangerouslySetInnerHTML={{ __html: childComment.text }} />
                     {childComment.kids && childComment.kids.map((nestedChildComment, index) => (
                         <>
                             <Comment childComment={nestedChildComment} key={index} />
@@ -131,14 +131,14 @@ export default function story() {
         <>
             {<main className='min-h-screen my-6 px-4 sm:px-6 lg:px-8'>
                 <div>
-                    <div className="space-y-4 p-4 border rounded-md border-neutral-800 transition-all duration-200 hover:bg-[#171717] hover:shadow-sm">
+                    <div className="space-y-4 p-4 border rounded-md border-neutral-800 transition-all duration-200 darkhover:bg-[#171717] hover:shadow-sm">
                         <p className="sm:text-2xl font-semibold text-lg leading-tight">
                             {/* <a href={user.url} target="_blank" rel="noopener noreferrer" className="text-[#FA7921] hover:text-[#FE9920] hover:underline focus:outline-none focus:ring-2 focus:ring-neutral-800 focus:ring-opacity-50"> */}
-                                {user.title}
+                            {user.title}
                             {/* </a> */}
                         </p>
-                        <span className="text-sm sm:text-base flex items-center gap-2 text-gray-400 flex-wrap">
-                            <p className="text-gray-400">
+                        <span className="text-sm sm:text-base flex items-center gap-2 dark:text-gray-400 text-black/80 flex-wrap">
+                            <p className="dark:text-gray-400 text-black/80">
                                 by{' '}
                                 <Link to={`/users/${user.by}`}>
                                     <span className="text-[#FA7921] hover:text-[#FE9920] hover:underline underline-offset-4 transition-colors">
@@ -161,14 +161,14 @@ export default function story() {
                         {comments.map((comment, index) => (
                             <>
                                 <div key={index} className="space-y-4">
-                                    <div className='p-5 mt-4 rounded-md border border-neutral-800 transition-all duration-200 hover:bg-[#171717] hover:shadow-sm'>
+                                    <div className='p-5 mt-4 rounded-md border border-neutral-800 transition-all duration-200 dark:hover:bg-[#171717] hover:shadow-sm'>
                                         <div className="flex items-center gap-2">
                                             <Link to={`/users/${comment.by}`}>
                                                 <span className="text-[#FA7921] font-semibold hover:underline underline-offset-4 transition-colors sm:text-base text-sm">{comment.by} </span>
                                             </Link>|
-                                            <span className='sm:text-base text-sm text-gray-400'> {comment.time}</span>
+                                            <span className='sm:text-base text-sm dark:text-gray-400 text-black/90'> {comment.time}</span>
                                         </div>
-                                        <div id='lazy' className='comment prose prose-sm max-w-none text-gray-400 sm:text-sm text-sm' dangerouslySetInnerHTML={{ __html: comment.text }} />
+                                        <div id='lazy' className='comment prose prose-sm max-w-none dark:text-gray-400 text-black/90 sm:text-sm text-sm' dangerouslySetInnerHTML={{ __html: comment.text }} />
                                         {comment.kids && comment.kids.length > 0 &&
                                             comment.kids.map((comment, index) => (
                                                 <>

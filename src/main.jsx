@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Main, UserProfile, Story } from './components/index';
+import { ThemeProvider } from './context/context';
 
 const router = createBrowserRouter([
   {

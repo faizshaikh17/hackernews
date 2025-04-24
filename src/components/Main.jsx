@@ -3,6 +3,7 @@ import { fetchTopStories, fetchItemsById } from '../utils/utils';
 import { Link } from 'react-router-dom';
 import { Triangle, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
 import pLimit from 'p-limit';
+import { ThemeProvider } from '../context/context';
 
 const fetchStories = async (concurrency = 50) => {
     const limit = pLimit(concurrency);
@@ -57,6 +58,7 @@ export default function Main() {
         });
     }, []);
 
+
     const prevPage = () => {
         if (page >= 2) {
             setPage((prev) => prev - 1);
@@ -77,6 +79,8 @@ export default function Main() {
         }
     };
 
+
+
     const pageWiseStories = topStories.slice((page - 1) * limit, page * limit);
 
     if (loading) {
@@ -96,13 +100,14 @@ export default function Main() {
     }
 
     return (
-        <main className="min-h-screen space-y-6 tracking-tight my-6 px-2">
+
+        <main className="min-h-screen dark:bg-[#121212] bg-[#f0f0f0] space-y-6 tracking-tight px-2 transition-colors duration-200">
             <div className="space-y-4 mx-4 max-w-4xl">
                 {pageWiseStories.map((item) => (
                     <>
                         <article
                             key={item.id}
-                            className="p-4 transition-all duration-200 rounded-md hover:bg-[#171717] hover:shadow-sm"
+                            className="p-4 transition-all duration-200 rounded-md dark:hover:bg-[#171717] hover:bg-gray-200 hover:shadow-sm"
                         >
                             <div className="space-y-2">
                                 <h2 className=" lg:text-[1.15rem] text-base leading-tight">
@@ -115,7 +120,7 @@ export default function Main() {
                                         {item.title}
                                     </a>
                                 </h2>
-                                <p className="text-sm text-gray-400">
+                                <p className="text-sm dark:text-gray-400 text-black/80">
                                     by{' '}
                                     <Link
                                         to={`/users/${item.by}`}
@@ -140,7 +145,7 @@ export default function Main() {
                                 </div>
                             </div>
                         </article>
-                        <div className='bg-white/10 h-[1px] mt-4' />
+                        <div className='bg-[#121212]/10 h-[1px] mt-4' />
                     </>
                 ))}
             </div>
@@ -152,7 +157,7 @@ export default function Main() {
                     <button
                         onClick={prevPointer}
                         disabled={page === 1}
-                        className="flex items-center justify-center rounded-lg h-10 w-10 hover:bg-[#171717] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        className="flex items-center justify-center rounded-lg h-10 w-10 dark:hover:bg-[#171717] hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                         aria-label="Go to first page"
                     >
                         <ChevronsLeft size={18} />
@@ -160,7 +165,7 @@ export default function Main() {
                     <button
                         onClick={prevPage}
                         disabled={page === 1}
-                        className="flex items-center justify-center rounded-lg h-10 w-10 hover:bg-[#171717] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        className="flex items-center justify-center rounded-lg h-10 w-10 dark:hover:bg-[#171717] hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                         aria-label="Previous page"
                     >
                         <ChevronLeft size={18} />
@@ -171,7 +176,7 @@ export default function Main() {
                     <button
                         onClick={nextPage}
                         disabled={page === totalPages}
-                        className="flex items-center justify-center rounded-lg h-10 w-10 hover:bg-[#171717] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        className="flex items-center justify-center rounded-lg h-10 w-10 dark:hover:bg-[#171717] hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                         aria-label="Next page"
                     >
                         <ChevronRight size={18} />
@@ -179,7 +184,7 @@ export default function Main() {
                     <button
                         onClick={nextPointer}
                         disabled={page === totalPages}
-                        className="flex items-center justify-center rounded-lg h-10 w-10 hover:bg-[#171717] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        className="flex items-center justify-center rounded-lg h-10 w-10 dark:hover:bg-[#171717] hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                         aria-label="Go to last page"
                     >
                         <ChevronsRight size={18} />
@@ -187,5 +192,6 @@ export default function Main() {
                 </nav>
             )}
         </main>
+
     );
 }

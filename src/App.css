@@ -1,39 +1,32 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 body {
-  background-color: #121212;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
 }
+
+:root.dark {
+  --primary-color: #f0f0f0;
+  --background-color: #121212;
+}
+
+:root {
+  --primary-color: #121212;
+  --background-color: #f0f0f0;
+}
+
 
 #root {
-  color: #ffffff;
+  color: var(--primary-color);
+  background-color: var(--background-color);
   max-width: 780px;
   margin: 0 auto;
-  padding: 0.5rem;
-  background-color: #121212;
+  padding: 0;
+  letter-spacing: 0.05em;
   font-family: "Bricolage Grotesque", sans-serif;
-  /* font-family: "Poppins", sans-serif; */
-  /* font-family: 'DuplicateSans'; */
-  letter-spacing: 5%;
-  width: 100%;
 }
-
-
-@font-face {
-  font-family: 'DuplicateSans';
-  src: url('/public/fonts/DuplicateSans-medium.woff2') format('woff2');
-  font-weight: 500;
-  /* Bold */
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'DuplicateSans';
-  src: url('/public/fonts/DuplicateSans-regular.woff2') format('woff2');
-  font-weight: 400;
-  /* Bold */
-  font-style: normal;
-}
-
 
 
 @font-face {
@@ -55,7 +48,8 @@ body {
 .comment {
   max-width: 100%;
   min-width: 50%;
-  overflow-wrap: anywhere; /* Break long URLs anywhere */
+  overflow-wrap: anywhere;
+  /* Break long URLs anywhere */
   word-break: break-word;
 }
 
@@ -63,18 +57,22 @@ body {
 .comment a {
   /* text-decoration: underline; */
   color: #FA7921;
-  overflow-wrap: anywhere; /* Break long URLs anywhere */
-  word-break: break-word; /* Break long words */
-  display: inline-block; /* Ensure links wrap within container */
-  max-width: 100%; /* Prevent links from exceeding container width */
+  overflow-wrap: anywhere;
+  /* Break long URLs anywhere */
+  word-break: break-word;
+  /* Break long words */
+  display: inline-block;
+  /* Ensure links wrap within container */
+  max-width: 100%;
+  /* Prevent links from exceeding container width */
 }
 
-.comment > a:hover {
+.comment>a:hover {
   text-decoration: underline;
   color: #FE9920;
 }
 
-.comment > code {
+.comment>code {
   font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
   background-color: #f4f4f4;
   padding: 2px 4px;
@@ -84,7 +82,7 @@ body {
 }
 
 
-.comment > pre code {
+.comment>pre code {
   display: block;
   background-color: #1e1e1e;
   color: #d4d4d4;
