@@ -8,7 +8,7 @@ export function Comment({ childComment, index }) {
     return (
         <>
             <div key={index} className="space-y-4">
-                <div className='p-4 sm:pl-8 border-l border-l-neutral-600'>
+                <div className='p-4 sm:pl-8 border-l-[0.5px] border-l-neutral-800'>
                     <div className="flex items-center gap-2">
                         <Link to={`/users/${childComment.by}`}>
                             <span className="text-[#FA7921] hover:text-[#FE9920] font-semibold hover:underline underline-offset-4 transition-colors sm:text-base text-sm">{childComment.by} </span>
