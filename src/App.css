@@ -4,7 +4,8 @@
 body {
   background-color: var(--background-color);
   color: var(--text-color);
-  transition: background-color 0.3s, color 0.3s;
+  /* transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-duration: 300ms; */
 }
 
 :root.dark {

@@ -15,7 +15,7 @@ export default function Header() {
 
     return (
         <>
-            <header className='p-5 tracking-tight bg-[#f0f0f0] dark:bg-[#121212] transition-colors duration-300'>
+            <header className='p-5 tracking-tight bg-[#f0f0f0] dark:bg-[#121212]'>
                 <div className='flex justify-between items-center'>
                     <Link to={'/'}>
                         <span className='text-[1.2rem] text-[#FA7921] dark:text-[#f0f0f0] font-semibold sm:text-[1.4rem]'>TheDaily<span className='dark:text-[#FA7921]'>Hacker</span></span>

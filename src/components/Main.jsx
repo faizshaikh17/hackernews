@@ -101,7 +101,7 @@ export default function Main() {
 
     return (
 
-        <main className="min-h-screen dark:bg-[#121212] bg-[#f0f0f0] space-y-6 tracking-tight px-2 transition-colors duration-200">
+        <main className="min-h-screen dark:bg-[#121212] bg-[#f0f0f0] space-y-6 tracking-tight px-2">
             <div className="space-y-4 mx-4 max-w-4xl">
                 {pageWiseStories.map((item) => (
                     <>
@@ -145,7 +145,7 @@ export default function Main() {
                                 </div>
                             </div>
                         </article>
-                        <div className='bg-[#121212]/10 h-[1px] mt-4' />
+                        <div className='bg-[#121212]/10 dark:bg-[#f0f0f0]/5 h-[1px] mt-4' />
                     </>
                 ))}
             </div>
