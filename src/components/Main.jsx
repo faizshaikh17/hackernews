@@ -132,7 +132,7 @@ export default function Main() {
                                 <div className="text-sm flex items-center gap-2 flex-wrap">
                                     <Link
                                         to={`/story/${item.id}`}
-                                        className="text-[#FA7921] hover:underline underline-offset-4"
+                                        className="text-[#FA7921] hover:underline underline-offset-4 hover:text-[#FE9920] transition-colors"
                                     >
                                         {item.kids.length} comments
                                     </Link>
