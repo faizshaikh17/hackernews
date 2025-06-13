@@ -31,7 +31,7 @@ export default function UserProfile() {
     return (
       <main className="min-h-screen bg-[#f0f0f0] dark:bg-[#121212] px-4 sm:px-6 lg:px-8 my-6">
         <section className="max-w-4xl mx-auto">
-          <div className="p-4 rounded-md animate-pulse bg-gray-950/5 dark:bg-white/5 border-[0.01rem] border-neutral-800 space-y-4">
+          <div className="p-4 rounded-md animate-pulse bg-neutral-700/20 border-[0.01rem] border-neutral-800 space-y-4">
             <div className="h-4 w-1/3 bg-neutral-700/40 rounded" />
             <div className="space-y-2">
               <div className="h-3 w-1/2 bg-neutral-700/40 rounded" />

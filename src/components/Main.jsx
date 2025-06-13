@@ -60,7 +60,7 @@ export default function Main() {
       <main className="min-h-screen bg-[#f0f0f0] dark:bg-[#121212] px-2">
         <div className="max-w-4xl mx-auto space-y-4 py-8">
           {Array.from({ length: 8 }).map((_, idx) => (
-            <div key={idx} className="animate-pulse mx-2 rounded-md p-4 space-y-3 bg-gray-950/40 dark:bg-white/10">
+            <div key={idx} className="animate-pulse mx-2 rounded-md p-4 space-y-3 bg-neutral-700/20">
               <div className="h-4 w-1/2 bg-neutral-700/40 rounded" />
               <div className="h-3 w-1/3 bg-neutral-700/40 rounded" />
               <div className="h-3 w-3/4 bg-neutral-700/40 rounded" />
