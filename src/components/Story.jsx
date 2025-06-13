@@ -1,284 +1,174 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react';
 import { fetchItemsById } from '../utils/utils';
 import { useParams, Link } from 'react-router-dom';
-import { Triangle } from 'lucide-react';
 
-export function Comment({ childComment, index }) {
+const StoryShimmer = () => (
+    <div className="space-y-4 p-4 border rounded-md border-neutral-800">
+        <div className="animate-pulse space-y-3">
+            <div className="h-6 w-3/4 rounded bg-neutral-700/40" />
+            <div className="h-4 w-1/2 rounded bg-neutral-700/40" />
+        </div>
+    </div>
+);
+
+const CommentShimmer = () => (
+    <div className="p-4 mt-4 rounded-md border border-neutral-800">
+        <div className="animate-pulse space-y-3">
+            <div className="flex items-center gap-2">
+                <div className="h-4 w-24 rounded bg-neutral-700/40" />
+                <div className="h-4 w-32 rounded bg-neutral-700/40" />
+            </div>
+            <div className="h-3 w-full rounded bg-neutral-700/40" />
+            <div className="h-3 w-10/12 rounded bg-neutral-700/40" />
+        </div>
+    </div>
+);
+
+const Comment = ({ childComment }) => {
+    if (!childComment || !childComment.by) return null;
 
     return (
-        <>
-            <div key={index} className="space-y-4">
-                <div className='p-4 sm:pl-8 border-l-[0.5px] border-l-neutral-800'>
-                    <div className="flex items-center gap-2">
-                        <Link to={`/users/${childComment.by}`}>
-                            <span className="text-[#FA7921] hover:text-[#FE9920] font-semibold hover:underline underline-offset-4 transition-colors sm:text-base text-sm">{childComment.by} </span>
-                        </Link>|
-                        <span className='sm:text-base text-sm dark:text-gray-400 text-black/90'> {childComment.time}</span>
-                    </div>
-                    <div id='lazy' className='comment prose prose-sm max-w-none dark:text-gray-400 text-black/90 sm:text-sm text-sm' dangerouslySetInnerHTML={{ __html: childComment.text }} />
-                    {childComment.kids && childComment.kids.map((nestedChildComment, index) => (
-                        <>
-                            <Comment childComment={nestedChildComment} key={index} />
-                        </>
-                    ))
-
-                    }
+        <div className="space-y-4 pt-4">
+            <div className="pl-4 sm:pl-6 border-l-[0.5px] border-l-neutral-800 space-y-2">
+                <div className="flex items-center gap-2 flex-wrap">
+                    <Link to={`/users/${childComment.by}`}>
+                        <span className="text-[#FA7921] hover:text-[#FE9920] font-semibold hover:underline underline-offset-4 transition-colors text-sm sm:text-base">
+                            {childComment.by}
+                        </span>
+                    </Link>
+                    <span className="text-gray-500">|</span>
+                    <span className="text-sm sm:text-base dark:text-gray-400 text-black/90">
+                        {childComment.time}
+                    </span>
                 </div>
+                <div
+                    className="prose prose-sm max-w-none dark:text-gray-400 text-black/90 text-sm sm:text-base prose-p:m-0"
+                    dangerouslySetInnerHTML={{ __html: childComment.text }}
+                />
+                {childComment.kids?.map((nested, i) => (
+                    <Comment childComment={nested} key={i} />
+                ))}
             </div>
-        </>
-    )
-}
+        </div>
+    );
+};
 
-export default function story() {
-    const [user, setUser] = useState([]);
+export default function Story() {
+    const [story, setStory] = useState({});
     const [comments, setComments] = useState([]);
     const { id } = useParams();
     const [loading, setLoading] = useState(true);
 
+    const fetchAllComments = async (ids) => {
+        if (!ids?.length) return [];
+        try {
+            const commentPromises = ids.map(async (cid) => {
+                const comment = await fetchItemsById(cid);
+                if (!comment || comment.deleted || comment.dead) return null;
+                const nested = await fetchAllComments(comment.kids || []);
+                return {
+                    by: comment.by,
+                    time: new Date(comment.time * 1000).toLocaleDateString(),
+                    text: comment.text,
+                    kids: nested,
+                };
+            });
+            const resolved = await Promise.all(commentPromises);
+            return resolved.filter(Boolean);
+        } catch {
+            return [];
+        }
+    };
+
     useEffect(() => {
-        const fetchUser = async (id) => {
+        const fetchData = async () => {
+            setLoading(true);
             try {
-                setLoading(true);
-                const userData = await fetchItemsById(id);
-                if (!userData) {
-                    throw new Error('No user response');
+                const storyData = await fetchItemsById(id);
+                if (!storyData) throw new Error();
+                setStory(storyData);
+                if (storyData.kids) {
+                    const commentData = await fetchAllComments(storyData.kids);
+                    setComments(commentData);
                 }
-                setUser(userData);
             } catch (error) {
-                console.error('Error fetching story:', error);
+                console.log(error)
             } finally {
                 setLoading(false);
             }
         };
-
-        fetchUser(id);
+        fetchData();
     }, [id]);
-
-
-    const fetchComments = async (ids) => {
-        if (!ids || ids.length === 0) return null
-        try {
-            const userDetails = ids.map(async (id) => {
-                const comments = await fetchItemsById(id);
-                if (!comments) {
-                    throw new Error('no user found');
-                }
-                const nestedComments = await fetchComments(comments.kids || [])
-                return {
-                    by: comments.by,
-                    time: `${new Date(comments.time * 1000).getDate().toString().padStart(2, '0')}/${new Date(comments.time * 1000).getMonth() + 1}/${new Date(comments.time * 1000).getFullYear()}`,
-                    text: comments.text,
-                    kids: nestedComments,
-                }
-            })
-            return Promise.all(userDetails)
-        } catch (error) {
-            console.log(error)
-            return []
-        }
-    }
-
-    useEffect(() => {
-        setLoading(true)
-        if (user && user.kids) {
-            fetchComments(user.kids).then((comment) => {
-                if (comment) setComments(comment)
-                else return null
-            })
-        }
-        setLoading(false)
-    }, [user])
-
-    // useEffect(() => {
-    //     const lazyCommentDiv = document.getElementById('lazy')
-
-    //     const observer = new IntersectionObserver((entries, observer) => {
-    //         entries.forEach(entry => {
-    //             if (entry.isIntersecting) {
-    //                 const div = entry.target;
-    //                 comments.map(item => (
-    //                     div.ATTRIBUTE_NODE.dangerouslySetInnerHTML = {__html: item.text }
-    //                 ))
-    //                 observer.unobserve(div);
-    //             }
-    //         })
-    //     }, {
-    //         root: null,
-    //         rootMargin: '100px',
-    //         threshold: 0,
-    //     })
-
-    //     observer.observe(lazyCommentDiv)
-
-    //     return () => {
-    //         if (lazyCommentDiv) observer.unobserve(lazyCommentDiv)
-    //     }
-    // }, [])
-
-
-
 
     if (loading) {
         return (
-            <p className="min-h-60 flex items-center justify-center font-semibold sm:text-[1.05rem] text-base animate-pulse">
-                Loading...
-            </p>
+            <main className="min-h-screen my-6 px-4 sm:px-6 lg:px-8">
+                <StoryShimmer />
+                <div className="space-y-2.5 py-4">
+                    <div className="animate-pulse h-6 w-32 rounded bg-neutral-700/40 mt-4" />
+                    {Array.from({ length: 3 }).map((_, i) => (
+                        <CommentShimmer key={i} />
+                    ))}
+                </div>
+            </main>
         );
     }
 
-
     return (
-        <>
-            {<main className='min-h-screen my-6 px-4 sm:px-6 lg:px-8'>
-                <div>
-                    <div className="space-y-4 p-4 border rounded-md border-neutral-800 transition-all duration-200 darkhover:bg-[#171717] hover:shadow-sm">
-                        <p className="sm:text-2xl font-semibold text-lg leading-tight">
-                            {/* <a href={user.url} target="_blank" rel="noopener noreferrer" className="text-[#FA7921] hover:text-[#FE9920] hover:underline focus:outline-none focus:ring-2 focus:ring-neutral-800 focus:ring-opacity-50"> */}
-                            {user.title}
-                            {/* </a> */}
-                        </p>
-                        <span className="text-sm sm:text-base flex items-center gap-2 dark:text-gray-400 text-black/80 flex-wrap">
-                            <p className="dark:text-gray-400 text-black/80">
-                                by{' '}
-                                <Link to={`/users/${user.by}`}>
-                                    <span className="text-[#FA7921] hover:text-[#FE9920] hover:underline underline-offset-4 transition-colors">
-                                        {user.by || "User"}
-                                    </span>
-                                </Link>
-                            </p>
-                            <Link to={`/story/${user.id}`}>
-                                <span className="text-[#FA7921] hover:underline underline-offset-4 transition-colors">
+        <main className="min-h-screen my-6 px-4 sm:px-6 lg:px-8">
+            <div className="space-y-4 p-4 border rounded-md border-neutral-800 transition-all duration-200 dark:hover:bg-[#171717] hover:shadow-sm">
+                <p className="text-lg sm:text-2xl font-semibold leading-tight">{story.title}</p>
+                <div className="text-sm sm:text-base flex items-center gap-2 flex-wrap dark:text-gray-400 text-black/80">
+                    <span>by</span>
+                    <Link to={`/users/${story.by}`}>
+                        <span className="text-[#FA7921] hover:text-[#FE9920] hover:underline underline-offset-4 transition-colors">
+                            {story.by || "User"}
+                        </span>
+                    </Link>
+                    <span>|</span>
+                    <span>{story.score || "0"} Score</span>
+                    <span>|</span>
+                    <span>{new Date(story.time * 1000).toLocaleDateString()}</span>
+                </div>
+                {story.url && (
+                    <p className="text-[#FA7921] underline underline-offset-4 transition-colors hover:text-[#FE9920] break-words">
+                        <a href={story.url} target="_blank" rel="noopener noreferrer">
+                            {story.url}
+                        </a>
+                    </p>
+                )}
+            </div>
+
+            <div className="space-y-2.5 py-4">
+                <p className="text-lg sm:text-xl font-semibold text-[#FA7921]">
+                    Comments ({story.descendants || 0})
+                </p>
+                {comments.map((comment, index) => (
+                    <div
+                        key={index}
+                        className="p-4 sm:p-5 mt-4 rounded-md border border-neutral-800 transition-all duration-200 dark:hover:bg-[#171717] hover:shadow-sm space-y-2"
+                    >
+                        <div className="flex items-center gap-2 flex-wrap">
+                            <Link to={`/users/${comment.by}`}>
+                                <span className="text-[#FA7921] font-semibold hover:underline underline-offset-4 transition-colors text-sm sm:text-base">
+                                    {comment.by}
                                 </span>
                             </Link>
-                            | {user.score || "..."} Score | {` ${new Date(user.time * 1000).getDate().toString()}/${new Date(user.time * 1000).getMonth().toString()}/${new Date(user.time * 1000).getFullYear().toString()}`}
-                        </span>
-                        <p className='text-[#FA7921] underline underline-offset-4 transition-colors hover:text-[#FE9920] truncate'><a href={user.url}>{user.url}</a></p>
-                    </div>
-                </div>
-                <div className="space-y-2.5 py-4">
-                    <p className='sm:text-xl text-lg font-semibold text-[#FA7921]'>Comments</p>
-                    <div >
-                        {comments.map((comment, index) => (
-                            <>
-                                <div key={index} className="space-y-4">
-                                    <div className='p-5 mt-4 rounded-md border border-neutral-800 transition-all duration-200 dark:hover:bg-[#171717] hover:shadow-sm'>
-                                        <div className="flex items-center gap-2">
-                                            <Link to={`/users/${comment.by}`}>
-                                                <span className="text-[#FA7921] font-semibold hover:underline underline-offset-4 transition-colors sm:text-base text-sm">{comment.by} </span>
-                                            </Link>|
-                                            <span className='sm:text-base text-sm dark:text-gray-400 text-black/90'> {comment.time}</span>
-                                        </div>
-                                        <div id='lazy' className='comment prose prose-sm max-w-none dark:text-gray-400 text-black/90 sm:text-sm text-sm' dangerouslySetInnerHTML={{ __html: comment.text }} />
-                                        {comment.kids && comment.kids.length > 0 &&
-                                            comment.kids.map((comment, index) => (
-                                                <>
-                                                    <Comment childComment={comment} key={index} />
-                                                </>
-                                            ))
-                                        }
-                                    </div>
-                                </div>
-                            </>
+                            <span className="text-gray-500">|</span>
+                            <span className="text-sm sm:text-base dark:text-gray-400 text-black/90">
+                                {comment.time}
+                            </span>
+                        </div>
+                        <div
+                            className="prose prose-sm max-w-none dark:text-gray-400 text-black/90 text-sm sm:text-base prose-p:m-0"
+                            dangerouslySetInnerHTML={{ __html: comment.text }}
+                        />
+                        {comment.kids?.map((child, idx) => (
+                            <Comment childComment={child} key={idx} />
                         ))}
-                    </div >
-                </div>
-
-            </main>}
-        </>
-    )
+                    </div>
+                ))}
+            </div>
+        </main>
+    );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-// className='p-4 mt-4 rounded-lg border-[0.01rem] border-neutral-800 transition-all duration-200 hover:bg-[#FFFFFF] hover:shadow-sm'
-
-// <div key={index} className="space-y-4">
-//                                     <div className='p-4 mt-4 rounded-lg border-[0.01rem] border-neutral-800 transition-all duration-200 hover:bg-[#FFFFFF] hover:shadow-sm'>
-//                                         <div className="flex items-center gap-2">
-//                                             <Link to={`/users/${comment.by}`}>
-//                                                 <span className="text-[#121212] font-semibold hover:underline underline-offset-4 transition-colors sm:text-base text-sm">{comment.by} </span>
-//                                             </Link>|
-//                                             <span className='sm:text-base text-sm text-gray-800'> {comment.time}</span>
-//                                         </div>
-//                                         <div id='lazy' className='comment prose prose-sm max-w-none text-gray-800 font-medium sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: comment.text }} />
-//                                         {comment.kids && comment.kids.length > 0 &&
-//                                             comment.kids.map((item, index) => (
-//                                                 <>
-//                                                     <div key={index} className='py-5 comment pl-10 pr-4 border-l-[0.01rem] border-l-neutral-300 transition-all duration-200 hover:bg-[#FFFFFF] hover:shadow-xs'>
-//                                                         <div className="flex items-center gap-2">
-//                                                             <Link to={`/users/${item.by}`}>
-//                                                                 <span className="text-[#121212] font-semibold hover:underline underline-offset-4 transition-colors sm:text-sm text-sm">
-//                                                                     {item.by}
-//                                                                 </span>
-//                                                             </Link>|
-//                                                             <span className='sm:text-sm text-sm text-gray-800'> {item.time}</span>
-//                                                         </div>
-//                                                         <div id='lazy' className='comment prose prose-sm max-w-none text-gray-800 sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: item.text }} />
-//                                                         {item.kids && item.kids.length > 0 &&
-//                                                             item.kids.map((layer2, index) => (
-//                                                                 <>
-//                                                                     <div key={index} className='py-5 comment pl-10 pr-4 border-l-[0.01rem] border-l-neutral-300 transition-all duration-200 hover:bg-[#FFFFFF] hover:shadow-xs'>
-//                                                                         <div className="flex items-center gap-2">
-//                                                                             <Link to={`/users/${layer2.by}`}>
-//                                                                                 <span className="text-[#121212] font-semibold hover:underline underline-offset-4 transition-colors sm:text-sm text-sm">
-//                                                                                     {layer2.by}
-//                                                                                 </span>
-//                                                                             </Link>|
-//                                                                             <span className='sm:text-sm text-sm text-gray-800'> {layer2.time}</span>
-//                                                                         </div>
-//                                                                         <div id='lazy' className='comment prose prose-sm max-w-none text-gray-800 sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: layer2.text }} />
-//                                                                         {layer2.kids && layer2.kids.length > 0 &&
-//                                                                             layer2.kids.map((layer3, index) => (
-//                                                                                 <>
-//                                                                                     <div key={index} className='py-5 comment pl-10 pr-4 border-l-[0.01rem] border-l-neutral-300 transition-all duration-200 hover:bg-[#FFFFFF] hover:shadow-xs'>
-//                                                                                         <div className="flex items-center gap-2">
-//                                                                                             <Link to={`/users/${layer3.by}`}>
-//                                                                                                 <span className="text-[#121212] font-semibold hover:underline underline-offset-4 transition-colors sm:text-sm text-sm">
-//                                                                                                     {layer3.by}
-//                                                                                                 </span>
-//                                                                                             </Link>|
-//                                                                                             <span className='sm:text-sm text-sm text-gray-800'> {layer3.time}</span>
-//                                                                                         </div>
-//                                                                                         <div id='lazy' className='comment prose prose-sm max-w-none text-gray-800 sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: layer3.text }} />
-//                                                                                         {
-//                                                                                             layer3.kids && layer3.kids.length > 0 &&
-//                                                                                             layer3.kids.map((layer4, index) => (
-//                                                                                                 <>
-//                                                                                                     <div key={index} className='py-5 comment pl-10 pr-4 border-l-[0.01rem] border-l-neutral-300 transition-all duration-200 hover:bg-[#FFFFFF] hover:shadow-xs'>
-//                                                                                                         <div className="flex items-center gap-2">
-//                                                                                                             <Link to={`/users/${layer4.by}`}>
-//                                                                                                                 <span className="text-[#121212] font-semibold hover:underline underline-offset-4 transition-colors sm:text-sm text-sm">
-//                                                                                                                     {layer4.by}
-//                                                                                                                 </span>
-//                                                                                                             </Link>|
-//                                                                                                             <span className='sm:text-sm text-sm text-gray-800'> {layer4.time}</span>
-//                                                                                                         </div>
-//                                                                                                         <div id='lazy' className='comment prose prose-sm max-w-none text-gray-800 sm:text-base text-sm' dangerouslySetInnerHTML={{ __html: layer4.text }} />
-//                                                                                                     </div>
-//                                                                                                 </>
-//                                                                                             ))
-//                                                                                         }
-//                                                                                     </div>
-//                                                                                 </>
-//                                                                             ))
-//                                                                         }
-//                                                                     </div>
-//                                                                 </>
-//                                                             ))
-//                                                         }
-//                                                     </div>
-//                                                 </>
-//                                             ))
-//                                         }
-//                                     </div>
-//                                     {/* <div className="bg-neutral-800 mt-5 h-[0.01rem]"></div> */}
-//                                 </div>
