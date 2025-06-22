@@ -42,7 +42,7 @@ const Comment = ({ childComment }) => {
                     </span>
                 </div>
                 <div
-                    className="prose prose-sm max-w-none dark:text-gray-400 text-black/90 text-sm sm:text-base prose-p:m-0"
+                    className="prose prose-sm max-w-none dark:text-gray-400 text-black/90 text-sm sm:text-base prose-p:m-0 break-words whitespace-pre-wrap overflow-x-auto"
                     dangerouslySetInnerHTML={{ __html: childComment.text }}
                 />
                 {childComment.kids?.map((nested, i) => (
@@ -92,7 +92,7 @@ export default function Story() {
                     setComments(commentData);
                 }
             } catch (error) {
-                console.log(error)
+                console.log(error);
             } finally {
                 setLoading(false);
             }
@@ -160,7 +160,7 @@ export default function Story() {
                             </span>
                         </div>
                         <div
-                            className="prose prose-sm max-w-none dark:text-gray-400 text-black/90 text-sm sm:text-base prose-p:m-0"
+                            className="prose prose-sm max-w-none dark:text-gray-400 text-black/90 text-sm sm:text-base prose-p:m-0 break-words whitespace-pre-wrap overflow-x-auto"
                             dangerouslySetInnerHTML={{ __html: comment.text }}
                         />
                         {comment.kids?.map((child, idx) => (
